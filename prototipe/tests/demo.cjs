@@ -72,7 +72,7 @@ const fs = require('node:fs');
   await go('/petugas/akad');await page.screenshot({path:path.resolve(__dirname,'../../tmp/akad-final.png'),fullPage:true});
   await go('/beranda');await page.screenshot({path:path.resolve(__dirname,'../../tmp/landing-final.png'),fullPage:true});
   await go('/manajer/portofolio');await click('resetDemo');await page.reload();assert.equal((await state()).tahap,'draf');assert.equal((await state()).bukti.length,0);
-  await page.evaluate(()=>localStorage.setItem(DEMO_KEY,JSON.stringify({version:2,state:{workflow:{petani:{},bukti:[]},log:[],param:{aktif:{}}}})));
+  await page.addInitScript(()=>localStorage.setItem('tandur-demo-v2',JSON.stringify({version:2,state:{workflow:{petani:{},bukti:[]},log:[],param:{aktif:{}}}})));
   await page.reload();assert.equal((await state()).tahap,'draf');assert.match(await page.locator('#app').innerText(),/Data tersimpan tidak sesuai/);
   assert.deepEqual(errors,[]);
   console.log('PASS: '+routes.length+' screens + logo; persistent forms; validation; real upload/download; versioned submission; approval guards; quiz; signature/payment; handover/objection; parameter snapshots; documents; dashboard; CSV; reset.');

@@ -1,0 +1,474 @@
+[
+  {
+    "route": "/intro",
+    "code": "P0",
+    "title": "Menumbuhkankejelasan.Menjaga harapan.",
+    "file": "59-P0-intro.png",
+    "width": 1440,
+    "height": 914
+  },
+  {
+    "route": "/beranda",
+    "code": "P1",
+    "title": "Akad salam yang dipahami petani sebelum ditandatangani.",
+    "file": "01-P1-beranda.png",
+    "width": 1440,
+    "height": 6493
+  },
+  {
+    "route": "/cara-kerja",
+    "code": "P3",
+    "title": "Kejelasan yang bisa ditelusuri.",
+    "file": "02-P3-cara-kerja.png",
+    "width": 1440,
+    "height": 2652
+  },
+  {
+    "route": "/ajukan",
+    "code": "P2",
+    "title": "Mulai percakapan untuk lembaga Anda.",
+    "file": "03-P2-ajukan.png",
+    "width": 1440,
+    "height": 1751
+  },
+  {
+    "route": "/masuk",
+    "code": "A1",
+    "title": "Satu akad. Empat sisi yang harus terjaga.",
+    "file": "04-A1-masuk.png",
+    "width": 1440,
+    "height": 1006
+  },
+  {
+    "route": "/masuk/verifikasi",
+    "code": "A2",
+    "title": "Satu akad. Empat sisi yang harus terjaga.",
+    "file": "05-A2-masuk-verifikasi.png",
+    "width": 1440,
+    "height": 900
+  },
+  {
+    "route": "/masuk/petugas",
+    "code": "A1",
+    "title": "Satu akad. Empat sisi yang harus terjaga.",
+    "file": "06-A1-masuk-petugas.png",
+    "width": 1440,
+    "height": 1006
+  },
+  {
+    "route": "/masuk/verifikasi/petugas",
+    "code": "A2",
+    "title": "Satu akad. Empat sisi yang harus terjaga.",
+    "file": "07-A2-masuk-verifikasi-petugas.png",
+    "width": 1440,
+    "height": 900
+  },
+  {
+    "route": "/masuk/manajer",
+    "code": "A1",
+    "title": "Satu akad. Empat sisi yang harus terjaga.",
+    "file": "08-A1-masuk-manajer.png",
+    "width": 1440,
+    "height": 1006
+  },
+  {
+    "route": "/masuk/verifikasi/manajer",
+    "code": "A2",
+    "title": "Satu akad. Empat sisi yang harus terjaga.",
+    "file": "09-A2-masuk-verifikasi-manajer.png",
+    "width": 1440,
+    "height": 900
+  },
+  {
+    "route": "/masuk/dps",
+    "code": "A1",
+    "title": "Satu akad. Empat sisi yang harus terjaga.",
+    "file": "10-A1-masuk-dps.png",
+    "width": 1440,
+    "height": 1006
+  },
+  {
+    "route": "/masuk/verifikasi/dps",
+    "code": "A2",
+    "title": "Satu akad. Empat sisi yang harus terjaga.",
+    "file": "11-A2-masuk-verifikasi-dps.png",
+    "width": 1440,
+    "height": 900
+  },
+  {
+    "route": "/masuk/admin",
+    "code": "A1",
+    "title": "Satu akad. Empat sisi yang harus terjaga.",
+    "file": "12-A1-masuk-admin.png",
+    "width": 1440,
+    "height": 1006
+  },
+  {
+    "route": "/masuk/verifikasi/admin",
+    "code": "A2",
+    "title": "Satu akad. Empat sisi yang harus terjaga.",
+    "file": "13-A2-masuk-verifikasi-admin.png",
+    "width": 1440,
+    "height": 900
+  },
+  {
+    "route": "/masuk/lupa",
+    "code": "A3",
+    "title": "Satu akad. Empat sisi yang harus terjaga.",
+    "file": "14-A3-masuk-lupa.png",
+    "width": 1440,
+    "height": 900
+  },
+  {
+    "route": "/masuk/atur-ulang",
+    "code": "A4",
+    "title": "Satu akad. Empat sisi yang harus terjaga.",
+    "file": "15-A4-masuk-atur-ulang.png",
+    "width": 1440,
+    "height": 900
+  },
+  {
+    "route": "/masuk/aktivasi",
+    "code": "A5",
+    "title": "Satu akad. Empat sisi yang harus terjaga.",
+    "file": "16-A5-masuk-aktivasi.png",
+    "width": 1440,
+    "height": 940
+  },
+  {
+    "route": "/masuk/sesi-berakhir",
+    "code": "A6",
+    "title": "Satu akad. Empat sisi yang harus terjaga.",
+    "file": "17-A6-masuk-sesi-berakhir.png",
+    "width": 1440,
+    "height": 900
+  },
+  {
+    "route": "/bantuan",
+    "code": "S3",
+    "title": "Tetap jelas, termasuk saat ada kendala.",
+    "file": "18-S3-bantuan.png",
+    "width": 1440,
+    "height": 1928
+  },
+  {
+    "route": "/petugas/akad",
+    "code": "S1",
+    "title": "Ringkasan akad salam",
+    "file": "19-S1-petugas-akad.png",
+    "width": 1440,
+    "height": 1096
+  },
+  {
+    "route": "/petugas/berita-acara",
+    "code": "S2",
+    "title": "Berita acara serah terima",
+    "file": "20-S2-petugas-berita-acara.png",
+    "width": 1440,
+    "height": 1128
+  },
+  {
+    "route": "/petugas/beranda",
+    "code": "F1",
+    "title": "Beranda petugas",
+    "file": "21-F1-petugas-beranda.png",
+    "width": 1440,
+    "height": 1069
+  },
+  {
+    "route": "/petugas/cadangan",
+    "code": "F5",
+    "title": "Cadangan dan bukti",
+    "file": "22-F5-petugas-cadangan.png",
+    "width": 1440,
+    "height": 1368
+  },
+  {
+    "route": "/petugas/data-petani",
+    "code": "F2",
+    "title": "Data petani",
+    "file": "23-F2-petugas-data-petani.png",
+    "width": 1440,
+    "height": 900
+  },
+  {
+    "route": "/petugas/pendataan",
+    "code": "F3",
+    "title": "Pendataan petani",
+    "file": "24-F3-petugas-pendataan.png",
+    "width": 1440,
+    "height": 1089
+  },
+  {
+    "route": "/petugas/biaya",
+    "code": "F4",
+    "title": "Biaya satu musim",
+    "file": "25-F4-petugas-biaya.png",
+    "width": 1440,
+    "height": 1856
+  },
+  {
+    "route": "/petugas/detail-petani",
+    "code": "F6",
+    "title": "Detail TDR-0012",
+    "file": "26-F6-petugas-detail-petani.png",
+    "width": 1440,
+    "height": 900
+  },
+  {
+    "route": "/petugas/calon-kontrak",
+    "code": "F7",
+    "title": "Susun calon kontrak",
+    "file": "27-F7-petugas-calon-kontrak.png",
+    "width": 1440,
+    "height": 999
+  },
+  {
+    "route": "/petugas/hasil-uji",
+    "code": "F8",
+    "title": "Hasil uji empat sisi",
+    "file": "28-F8-petugas-hasil-uji.png",
+    "width": 1440,
+    "height": 2898
+  },
+  {
+    "route": "/petugas/hasil-uji/dasar",
+    "code": "F8",
+    "title": "Hasil uji empat sisi",
+    "file": "29-F8-petugas-hasil-uji-dasar.png",
+    "width": 1440,
+    "height": 2898
+  },
+  {
+    "route": "/petugas/hasil-uji/harga",
+    "code": "F8",
+    "title": "Hasil uji empat sisi",
+    "file": "30-F8-petugas-hasil-uji-harga.png",
+    "width": 1440,
+    "height": 2898
+  },
+  {
+    "route": "/petugas/hasil-uji/-40",
+    "code": "F8",
+    "title": "Hasil uji empat sisi",
+    "file": "31-F8-petugas-hasil-uji--40.png",
+    "width": 1440,
+    "height": 2898
+  },
+  {
+    "route": "/petugas/ringkasan-akad",
+    "code": "F10",
+    "title": "Bacakan bersama petani",
+    "file": "32-F10-petugas-ringkasan-akad.png",
+    "width": 1440,
+    "height": 1029
+  },
+  {
+    "route": "/petugas/uji-pemahaman",
+    "code": "F11",
+    "title": "Pastikan petani memahami",
+    "file": "33-F11-petugas-uji-pemahaman.png",
+    "width": 1440,
+    "height": 2017
+  },
+  {
+    "route": "/petugas/tanda-tangan",
+    "code": "F12",
+    "title": "Dokumentasi tanda tangan",
+    "file": "34-F12-petugas-tanda-tangan.png",
+    "width": 1440,
+    "height": 1308
+  },
+  {
+    "route": "/petugas/kontrak",
+    "code": "F13",
+    "title": "Kontrak dan pembayaran",
+    "file": "35-F13-petugas-kontrak.png",
+    "width": 1440,
+    "height": 1308
+  },
+  {
+    "route": "/petugas/serah-terima",
+    "code": "F14",
+    "title": "Serah terima panen",
+    "file": "36-F14-petugas-serah-terima.png",
+    "width": 1440,
+    "height": 1611
+  },
+  {
+    "route": "/petugas/keberatan",
+    "code": "F15",
+    "title": "Keberatan petani",
+    "file": "37-F15-petugas-keberatan.png",
+    "width": 1440,
+    "height": 900
+  },
+  {
+    "route": "/manajer/portofolio",
+    "code": "M1",
+    "title": "Portofolio pembiayaan",
+    "file": "38-M1-manajer-portofolio.png",
+    "width": 1440,
+    "height": 1069
+  },
+  {
+    "route": "/manajer/antrean",
+    "code": "M2",
+    "title": "Antrean persetujuan",
+    "file": "39-M2-manajer-antrean.png",
+    "width": 1440,
+    "height": 900
+  },
+  {
+    "route": "/manajer/detail-persetujuan",
+    "code": "M3",
+    "title": "Tinjau usulan v1",
+    "file": "40-M3-manajer-detail-persetujuan.png",
+    "width": 1440,
+    "height": 3235
+  },
+  {
+    "route": "/manajer/detail-kontrak",
+    "code": "M4",
+    "title": "Tinjau serah terima",
+    "file": "41-M4-manajer-detail-kontrak.png",
+    "width": 1440,
+    "height": 1513
+  },
+  {
+    "route": "/manajer/risiko",
+    "code": "M5",
+    "title": "Risiko kontrak",
+    "file": "42-M5-manajer-risiko.png",
+    "width": 1440,
+    "height": 2487
+  },
+  {
+    "route": "/manajer/parameter",
+    "code": "M6",
+    "title": "Usulkan parameter",
+    "file": "43-M6-manajer-parameter.png",
+    "width": 1440,
+    "height": 1305
+  },
+  {
+    "route": "/dps/arsip",
+    "code": "D1",
+    "title": "Arsip akad dan pengawasan",
+    "file": "44-D1-dps-arsip.png",
+    "width": 1440,
+    "height": 1411
+  },
+  {
+    "route": "/dps/jejak",
+    "code": "D2",
+    "title": "Jejak keputusan",
+    "file": "45-D2-dps-jejak.png",
+    "width": 1440,
+    "height": 900
+  },
+  {
+    "route": "/dps/persetujuan",
+    "code": "D3",
+    "title": "Tinjau parameter",
+    "file": "46-D3-dps-persetujuan.png",
+    "width": 1440,
+    "height": 1028
+  },
+  {
+    "route": "/dps/laporan",
+    "code": "D4",
+    "title": "Laporan pengawasan",
+    "file": "47-D4-dps-laporan.png",
+    "width": 1440,
+    "height": 905
+  },
+  {
+    "route": "/admin/parameter",
+    "code": "N4",
+    "title": "Penerapan parameter",
+    "file": "48-N4-admin-parameter.png",
+    "width": 1440,
+    "height": 936
+  },
+  {
+    "route": "/admin/kelola-akun",
+    "code": "N1",
+    "title": "Kelola akun lembaga",
+    "file": "49-N1-admin-kelola-akun.png",
+    "width": 1440,
+    "height": 1977
+  },
+  {
+    "route": "/admin/undang",
+    "code": "N2",
+    "title": "Undang pengguna lembaga",
+    "file": "50-N2-admin-undang.png",
+    "width": 1440,
+    "height": 1968
+  },
+  {
+    "route": "/admin/pengaturan",
+    "code": "N3",
+    "title": "Pengaturan lembaga",
+    "file": "51-N3-admin-pengaturan.png",
+    "width": 1440,
+    "height": 1103
+  },
+  {
+    "route": "/admin/templat",
+    "code": "N5",
+    "title": "Dokumen dan identitas",
+    "file": "52-N5-admin-templat.png",
+    "width": 1440,
+    "height": 900
+  },
+  {
+    "route": "/admin/log",
+    "code": "N6",
+    "title": "Log audit lembaga",
+    "file": "53-N6-admin-log.png",
+    "width": 1440,
+    "height": 949
+  },
+  {
+    "route": "/petugas/simulasi",
+    "code": "F8",
+    "title": "Hasil uji empat sisi",
+    "file": "54-F8-petugas-simulasi.png",
+    "width": 1440,
+    "height": 2796
+  },
+  {
+    "route": "/panduan-demo",
+    "code": "P6",
+    "title": "Demo Tandur untuk presentasi",
+    "file": "55-P6-panduan-demo.png",
+    "width": 1440,
+    "height": 1046
+  },
+  {
+    "route": "/privasi",
+    "code": "P7",
+    "title": "Data pada prototipe",
+    "file": "56-P7-privasi.png",
+    "width": 1440,
+    "height": 900
+  },
+  {
+    "route": "/peran",
+    "code": "P9",
+    "title": "Peran dalam satu alur",
+    "file": "57-P9-peran.png",
+    "width": 1440,
+    "height": 900
+  },
+  {
+    "route": "/syarat-demo",
+    "code": "P8",
+    "title": "Ketentuan penggunaan demo",
+    "file": "58-P8-syarat-demo.png",
+    "width": 1440,
+    "height": 900
+  }
+]

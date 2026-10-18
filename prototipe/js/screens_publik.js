@@ -1,5 +1,38 @@
+ROUTES['/intro'] = {
+  screen: 'P0',
+  render() {
+    return `<div class="intro">
+      <header class="intro-header">
+        <a class="intro-brand" href="#/intro" aria-label="Tandur, halaman pembuka">${logo({size:30})}</a>
+        <span class="intro-edition">PERTANIAN · KEJELASAN · KEPERCAYAAN</span>
+        <a class="intro-skip" href="#/beranda">Lewati intro <span aria-hidden="true">↗</span></a>
+      </header>
+      <main class="intro-main">
+        <div class="intro-copy">
+          <p class="intro-eyebrow"><span></span> TUMBUH DARI SEBUAH KESEPAKATAN</p>
+          <h1>Menumbuhkan<br>kejelasan.<br><em>Menjaga harapan.</em></h1>
+          <p class="intro-description">Setiap musim dimulai dengan harapan. Tandur membantu petani dan lembaga memahami akad salam, dari kesepakatan hingga hasil panen.</p>
+          <a class="intro-enter" href="#/beranda">Kenali Tandur <span aria-hidden="true">↗</span></a>
+          <p class="intro-caption">Kesepakatan dipahami. Langkah tercatat.</p>
+        </div>
+        <div class="intro-art" aria-hidden="true">
+          <div class="intro-orbit intro-orbit-outer"></div><div class="intro-orbit intro-orbit-inner"></div>
+          <div class="intro-sun"></div>
+          <svg class="intro-fields" viewBox="0 0 700 700" fill="none">
+            <path d="M-100 600Q160 140 800 390M-100 630Q160 170 800 420M-100 660Q160 200 800 450M-100 690Q160 230 800 480M-100 720Q160 260 800 510M-100 750Q160 290 800 540M-100 780Q160 320 800 570M-100 810Q160 350 800 600M-100 840Q160 380 800 630M-100 870Q160 410 800 660M-100 900Q160 440 800 690"/>
+          </svg>
+          <div class="intro-seed"><img src="assets/logo-tandur.png" alt="" width="280" height="240"></div>
+          <span class="intro-art-label">AKAR YANG KUAT.<br>MASA DEPAN YANG TUMBUH.</span>
+          <span class="intro-coordinate">01 / BENIH KESEPAKATAN</span>
+        </div>
+      </main>
+      <footer class="intro-footer"><span>Menumbuhkan kejelasan, menjaga kesepakatan.</span><span class="intro-demo"><i></i> Prototipe interaktif · Data ilustratif</span></footer>
+    </div>`;
+  }
+};
+
 function phead() {
-  const nav = [['Cara kerja', '#/cara-kerja'], ['Peran', '#/beranda'], ['Keamanan', '#/cara-kerja'], ['Masuk', '#/masuk']]
+  const nav = [['Cara kerja', '#/cara-kerja'], ['Peran', '#/peran'], ['Keamanan', '#/cara-kerja'], ['Masuk', '#/masuk']]
     .map(x => '<a href="' + x[1] + '">' + x[0] + '</a>').join('');
   return '<header class="phead"><div class="pin">' +
     '<a class="nodeco" href="#/beranda">' + logo({ ink: true, size: 24 }) + '</a>' +
@@ -11,7 +44,7 @@ function phead() {
 function pfoot(rows) {
   const isi = (rows || [
     [['Cara kerja', '#/cara-kerja'], ['Keamanan', '#/cara-kerja'], ['Ajukan akses', '#/ajukan']],
-    [['Privasi', '#/beranda'], ['Syarat penggunaan', '#/beranda'], ['Kontak lembaga', '#/ajukan']],
+    [['Privasi', '#/privasi'], ['Syarat penggunaan', '#/syarat-demo'], ['Kontak lembaga', '#/ajukan']],
     [['Rencana produk', '#/cara-kerja'], ['© 2027 Tandur', '']]
   ]).map(row => '<div>' + row.map(l => l[1] ? '<a href="' + l[1] + '">' + l[0] + '</a>' : l[0]).join(' · ') + '</div>').join('');
   return '<footer class="pfoot"><div class="pin"><div class="brand">' + logo() +
@@ -54,7 +87,7 @@ const FAQ = [
   ['Apakah petani perlu masuk ke Tandur?', 'Tidak. Petani cukup menerima ringkasan akad yang dibacakan petugas, menandatanganinya, dan membawa salinan cetak. Akun hanya diterbitkan lembaga.'],
   ['Apakah hasil lolos langsung menjadi akad?', 'Tidak. Lolos empat sisi baru usulan. Keputusan akhir tetap di manajer, dan parameter serta templat disetujui DPS.'],
   ['Apakah Tandur meminjamkan atau mengumpulkan dana?', 'Tidak. Tandur bukan perantara dana. Pencatatan uang muka dan pembayaran memakai rekening lembaga; bukti bayar diunggah petugas.'],
-  ['Apakah sinkronisasi offline sudah tersedia?', 'Belum. Prototipe ini berjalan daring. Sinkronisasi offline untuk daerah tanpa sinyal masuk rencana tahun kedua.']
+  ['Apakah sinkronisasi offline sudah tersedia?', 'Demo ini bisa dibuka tanpa jaringan pada browser yang sama. Sinkronisasi antarperangkat dan server belum tersedia.']
 ];
 
 ROUTES['/beranda'] = {
@@ -62,13 +95,20 @@ ROUTES['/beranda'] = {
   render() {
     return '<div class="pub">' + phead() +
 
-      '<section class="psec hero">' +
+      '<section class="psec hero"><div class="hero-copy">' +
       '<span class="pill">Perangkat kerja akad salam untuk KSPPS/BMT dan DPS</span>' +
       '<h1>Akad salam yang dipahami petani sebelum ditandatangani.</h1>' +
       '<p class="sub">Tandur mencatat data lapangan, menguji empat sisi kelayakan, dan menyimpan jejak keputusan yang bisa diaudit — tanpa membuat petani harus punya akun.</p>' +
-      '<div class="btn-row"><a class="btn btn-primary" href="#/ajukan">Ajukan akses lembaga</a>' +
+      '<div class="btn-row"><a class="btn btn-primary" href="#/panduan-demo">Mulai demo Tandur</a>' +
       '<a class="btn btn-ghost" href="#/cara-kerja">Pelajari cara kerja</a></div>' +
-      '</section>' +
+      '</div><aside class="hero-preview" aria-label="Gambaran alur Tandur">' +
+      '<div class="hero-preview-head">' + logo({size:22}) + '<span>GAMBARAN PRODUK</span></div>' +
+      '<div class="hero-preview-body"><p class="plabel">DARI LAPANGAN KE KESEPAKATAN</p>' +
+      '<h2>Satu alur.<br>Setiap langkah berarti.</h2>' +
+      '<ol class="hero-steps"><li><span>01</span><div><b>Kenali usaha petani</b><p>Data lahan, biaya, dan cadangan.</p></div></li>' +
+      '<li><span>02</span><div><b>Uji sebelum menyepakati</b><p>Empat sisi kelayakan, beberapa skenario.</p></div></li>' +
+      '<li><span>03</span><div><b>Pahami, lalu tandatangani</b><p>Ringkasan yang dibacakan dan dipahami.</p></div></li></ol>' +
+      '<div class="hero-preview-foot"><span class="hero-status-dot"></span> Jejak keputusan menyertai setiap akad.</div></div></aside></section>' +
 
       '<section class="psec pt34">' +
       '<div class="pgrid">' + PERAN.map(p =>
@@ -227,7 +267,7 @@ ROUTES['/cara-kerja'] = {
       '<a class="btn btn-ghost" href="#/beranda">Kembali ke landing</a></div>' +
       '</div>' +
       '<footer class="pfoot"><div class="pin"><div class="row">' + logo() +
-      '<div class="links"><a href="#/beranda">Privasi</a> · <a href="#/beranda">Syarat penggunaan</a> · <a href="#/ajukan">Hubungi Tandur</a></div>' +
+      '<div class="links"><a href="#/privasi">Privasi</a> · <a href="#/syarat-demo">Syarat penggunaan</a> · <a href="#/ajukan">Hubungi Tandur</a></div>' +
       '</div></div></footer>' +
       '</div>';
   }
@@ -240,7 +280,7 @@ ROUTES['/ajukan'] = {
       '<div class="pform">' +
       '<div class="crumb">Tandur / Untuk lembaga</div>' +
       '<h1>Mulai percakapan untuk lembaga Anda.</h1>' +
-      '<p class="sub">Permohonan akses bukan pendaftaran akun mandiri. Tim lembaga menentukan pengguna dan kewenangannya.</p>' +
+      '<p class="sub">Contoh formulir permohonan akses. Pada prototipe ini, isian tidak dikirim ke pihak mana pun. Tombol di bawah membuka pratinjau masuk.</p>' +
       '<div class="layout">' +
 
       '<div class="card"><h2>Identitas lembaga</h2>' +
@@ -259,7 +299,7 @@ ROUTES['/ajukan'] = {
       '<div class="field"><label>Kebutuhan dan catatan</label>' +
       '<textarea>Kami ingin meninjau alur pendataan, persetujuan pembiayaan, dan pelaporan DPS untuk musim tanam berikutnya.</textarea></div>' +
       '<label class="check"><input type="checkbox" checked> Saya menyetujui penggunaan kontak ini untuk menindaklanjuti permohonan akses sesuai Kebijakan privasi.</label>' +
-      '<div class="btn-row"><a class="btn btn-primary" href="#/masuk">Kirim permohonan akses</a>' +
+      '<div class="btn-row"><a class="btn btn-primary" href="#/masuk">Pratinjau masuk (simulasi)</a>' +
       '<a class="btn btn-ghost" href="#/beranda">← Kembali ke beranda</a></div>' +
       '</div>' +
 
@@ -278,7 +318,7 @@ ROUTES['/ajukan'] = {
       '</div>' +
 
       '</div></div>' +
-      pfoot([[['Privasi', '#/beranda'], ['Syarat penggunaan', '#/beranda'], ['Hubungi Tandur', '#/ajukan']]]) +
+      pfoot([[['Privasi', '#/privasi'], ['Syarat penggunaan', '#/syarat-demo'], ['Hubungi Tandur', '#/ajukan']]]) +
       '</div>';
   }
 };

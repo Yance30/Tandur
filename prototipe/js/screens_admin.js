@@ -115,7 +115,7 @@ ROUTES['/admin/undang'] = {
       '<h1 class="page">Undang pengguna lembaga</h1>' +
       '<p class="sub">Undangan terikat lembaga dan peran; bukan pendaftaran publik atau eskalasi hak akses.</p>' +
       '<div class="meta-chip">Data ilustratif · Musim tanam ' + TDATA.musim + '</div>' +
-      '<div class="layout"><div class="card"><h2>Rincian undangan</h2>' +
+      '<div class="layout undang-layout"><div class="card"><h2>Rincian undangan</h2>' +
       '<div class="field"><label>Nama pengguna</label><input id="undang-nama" value="Galih Prasetyo (contoh)"></div>' +
       '<div class="field"><label>Email kerja</label><input id="undang-email" type="email" value="galih@lembaga.example"></div>' +
       '<div class="field"><label>Nomor telepon</label><input value="08·· ···· 4321"></div>' +

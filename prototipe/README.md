@@ -10,9 +10,25 @@ Buka `prototipe/index.html` di browser desktop. Tidak perlu build atau jaringan.
 Font dan logo tersedia lokal. Navigasi memakai hash; back/forward browser berfungsi.
 Halaman operasional menggunakan layout desktop, tanpa halaman khusus mobile.
 
+Untuk presentasi, pilih **Mulai demo Tandur** di beranda (`#/panduan-demo`).
+Petunjuk langkah berikutnya mengikuti status kasus pada layar operasional.
+
 Logo asli pengguna disalin tanpa perubahan ke `assets/logo-tandur.png` dan digunakan
 oleh komponen `logo()` pada halaman publik, login, sidebar, dan dokumen, serta favicon.
-Gambar referensi di akar repo bukan halaman aplikasi.
+Gambar referensi lama berada di `../hasil-ui/arsip-desain-lama`, bukan halaman aplikasi.
+
+## Tampilan dan galeri
+
+Pembukaan tanpa hash menampilkan intro (`#/intro`); **Kenali Tandur** menuju
+landing page (`#/beranda`). Tautan langsung ke halaman operasional tetap berfungsi.
+`css/refinement.css` menyatukan tampilan publik, autentikasi, dashboard empat peran,
+formulir, tabel, status, dan pratinjau dokumen. `css/intro.css` mengatur pembuka.
+Dokumen tetap memiliki aturan cetak tersendiri; animasi menghormati reduced motion.
+
+Galeri `../hasil-ui/index.html` memuat 59 tangkapan layar desktop dengan data contoh.
+Jalankan `tests/export-ui.cjs` untuk memperbarui gambar setelah perubahan UI.
+Validasi memakai `tests/audit.cjs`, `tests/demo.cjs`, dan `tests/intro.cjs`
+(Node.js, Playwright, dan Microsoft Edge diperlukan).
 
 ## Demo dari awal sampai akhir
 
@@ -121,3 +137,9 @@ Tes memeriksa render semua route dan logo, formulir yang bertahan setelah refres
 validasi, unggah/unduh aktual, revisi dan snapshot parameter, blokir persetujuan,
 pemahaman, tanda tangan/pembayaran, toleransi penyerahan, keberatan, dokumen,
 dashboard, CSV, dan reset. Screenshot dibuat di `tmp/` pada akar proyek.
+
+Audit tambahan: `node prototipe/tests/audit.cjs`. Memeriksa route dan tautan internal,
+logo, label input, serta overflow pada 1366×768 dan 1280×768; juga kontrol tampilkan
+kata sandi, proporsi grafik gagal, mode cetak, dan kontras teks harga. Audit mengeluarkan
+status gagal bila ditemukan masalah pada pemeriksaan tersebut. Detail temuan dan
+perbaikan tercatat di `AUDIT_LOMBA.md`.

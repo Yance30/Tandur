@@ -84,27 +84,28 @@ function sesiBaris(role) {
 
 function shell(role, activeHref, inner) {
   const n = NAV[role];
-  const nav = n.items.map(it =>
-    '<a href="' + it[1] + '"' + (it[1] === activeHref ? ' class="active" aria-current="page"' : '') + '>' + it[0] + '</a>'
+  const iconPaths = ['M3 10 12 3l9 7v11h-6v-7H9v7H3Z','M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2 M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8 M17 4a4 4 0 0 1 0 7 M22 21v-2a4 4 0 0 0-3-4','M5 3h10l4 4v14H5Z M14 3v5h5 M8 12h8 M8 16h5','M4 4h16v16H4Z M8 9h8 M8 13h8 M8 17h4','M3 17l6-6 4 3 8-10 M15 4h6v6 M3 21h18','M5 4h14v17H5Z M8 8h8 M8 12h8 M8 16h5'];
+  const nav = n.items.map((it, i) =>
+    '<a href="' + it[1] + '"' + (it[1] === activeHref ? ' class="active" aria-current="page"' : '') + '><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="' + iconPaths[i % iconPaths.length] + '"/></svg><span>' + it[0] + '</span></a>'
   ).join('');
   return '<div class="shell"><aside class="sidebar">' + logo() +
-    '<div class="role">' + n.role + '</div><nav>' + nav + '</nav>' +
-    '<div class="foot">' + TDATA.lembaga + '<br>Data lembaga terpisah.' +
+    '<div class="role"><span class="workspace-label">RUANG KERJA</span>' + n.role + '</div><nav>' + nav + '</nav>' +
+    '<div class="foot"><div class="workspace-org">' + TDATA.lembaga + '</div><p>Data lembaga terpisah.</p>' +
     sesiBaris(role) +
     '<a href="#/bantuan">Pusat bantuan →</a><a href="#/masuk/sesi-berakhir">Keluar dari akun</a>' +
     '<a href="#/beranda" data-aksi="resetDemo">Reset data demo</a></div></aside>' +
     '<main class="main"><div class="topbar">' +
-    '<div class="search"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" focusable="false"><circle cx="6" cy="6" r="4.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M9.5 9.5 L13 13" stroke="currentColor" stroke-width="1.5"/></svg> Cari kode petani atau akad…</div>' +
-    '<div class="right"><span>Demo lokal</span><span>·</span><span>' + n.user + '</span></div></div>' +
+    '<div class="search"><span class="workspace-section">' + PERAN_LABEL[role] + '</span><span class="topbar-divider">/</span>Kasus ' + KODE_TINJAU + '</div>' +
+    '<div class="right"><span class="demo-badge">Demo lokal</span><span class="user-avatar" aria-hidden="true">' + n.user.split(' ').map(s => s[0]).join('') + '</span><span>' + n.user + '</span></div></div>' +
     '<div class="content">' + inner + '</div></main></div>';
 }
 
 function larik(sisi) {
   return '<div class="larik">' + sisi.map(s => {
     const gagal = s.st === 'gagal';
-    const h = gagal ? 10 : Math.min(s.rasio, 2) / 2 * 88;
+    const h = Math.max(0, Math.min(s.rasio, 2)) / 2 * 88;
     const bg = gagal ? 'background:var(--gagal);' : '';
-    return '<div><div class="box"><div class="line"></div><div class="bar" style="height:' + h + '%;' + bg + '"></div></div>' +
+    return '<div><div class="box" aria-hidden="true"><div class="line"></div><div class="bar" style="height:' + h + '%;' + bg + '"></div></div>' +
       '<div class="nama">' + s.nama + '</div><div class="nilai">' + st(s.st, s.nilai) + '</div>' +
       '<div class="ambang">' + s.ambang + '</div></div>';
   }).join('') + '</div>';
@@ -122,7 +123,7 @@ const TABLE_UJI = '<table class="tbl"><tr><th>Skenario</th><th>Q / batas serah</
   '<tr><td>Hasil −40%</td><td>1.112,4 / 912,4 kg</td><td>Rp715.564</td><td>Rp160.000</td><td>' + st('tinjau', 'Tinjau manfaat') + '</td></tr>' +
   '<tr><td>Harga −10%</td><td>1.854 / 1.654 kg</td><td>Rp4.850.864</td><td>−Rp360.000</td><td>' + st('tinjau', 'Tinjau kontribusi') + '</td></tr></table>';
 
-const LARIK_FOOT = '<p class="foot-note mt160">Garis = 100% ambang sendiri; batas tampilan = 200%. Rupiah dan kg tidak disatukan dalam satu skala. Nilai negatif berarti di bawah ambang.</p>';
+const LARIK_FOOT = '<p class="foot-note mt160">Garis = 100% ambang sendiri; batas tampilan = 200%. Rupiah dan kg tidak disatukan dalam satu skala. Nilai nol/negatif tidak memiliki batang positif; baca angka dan status di bawah grafik.</p>';
 
 function stepper(active) {
   const steps = [['1 · Identitas & lahan', '#/petugas/pendataan'], ['2 · Biaya', '#/petugas/biaya'], ['3 · Cadangan & bukti', '#/petugas/cadangan']];

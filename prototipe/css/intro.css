@@ -1,0 +1,25 @@
+.intro{min-height:100svh;background:#06231d;color:#fffdee;position:relative;overflow:hidden;display:flex;flex-direction:column;padding:0 clamp(24px,5vw,88px);isolation:isolate}
+.intro::before{content:'';position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse at 79% 45%,#174b36 0,transparent 55%)}
+.intro-header{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:30px 0;border-bottom:1px solid #ffffff20}
+.intro-brand{text-decoration:none}.intro-edition{font-size:10px;letter-spacing:2.6px;color:#b4c6ba}
+.intro-skip{font-size:13px;text-decoration:none;color:#dce7db;display:flex;gap:20px;align-items:center;padding:10px 0}.intro-skip span{font-size:21px}
+.intro-main{flex:1;display:grid;grid-template-columns:1.12fr 1fr;align-items:center;gap:24px;width:100%;max-width:1600px;margin:auto;padding:64px 0 72px}
+.intro-copy{position:relative;z-index:2;animation:intro-reveal .85s ease-out both}
+.intro-eyebrow{display:flex;align-items:center;gap:12px;font-size:10px;letter-spacing:2.2px;color:#c3e956;margin:0 0 28px}.intro-eyebrow span{width:20px;height:1px;background:currentColor}
+.intro h1{font-family:var(--font-display);font-weight:400;font-size:clamp(48px,5.25vw,84px);line-height:1.07;letter-spacing:-2.5px;margin:0 0 28px}.intro h1 em{font-style:normal;color:#c3e956}
+.intro-description{max-width:440px;color:#b9cdc0;font-size:15px;line-height:1.85;margin:0 0 32px}
+.intro-enter{display:inline-flex;align-items:center;justify-content:space-between;gap:58px;background:#c3e956;color:#06231d;border:1px solid #c3e956;border-radius:100px;padding:16px 23px;text-decoration:none;font-size:14px;font-weight:600;transition:background .2s,transform .2s}.intro-enter span{font-size:24px;line-height:1}.intro-enter:hover{background:#d6f582;transform:translateY(-2px)}
+.intro a:focus-visible{outline:3px solid #fffdee;outline-offset:7px}.intro-caption{font-size:11px;color:#9db6a5;margin:18px 0 0}
+.intro-art{position:relative;aspect-ratio:1/1;width:100%;max-width:640px;justify-self:end;animation:intro-reveal 1.2s .1s ease-out both}
+.intro-orbit{position:absolute;border:1px solid #c3e95625;border-radius:50%;inset:7%}.intro-orbit-inner{inset:16%;border-style:dashed;border-color:#c3e95618}.intro-orbit-outer::after{content:'';position:absolute;width:7px;height:7px;background:#c3e956;border-radius:50%;top:17%;left:12%}
+.intro-sun{position:absolute;inset:24%;border-radius:50%;background:radial-gradient(circle,#c3e95618,transparent 72%);box-shadow:0 0 100px #b9dd4310}
+.intro-seed{position:absolute;inset:19% 24% 27%;display:flex;align-items:center;justify-content:center;animation:intro-grow 1.3s ease-out both}.intro-seed img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 18px 30px #b8df4320)}
+.intro-fields{position:absolute;width:130%;height:130%;left:-15%;top:1%;stroke:#b9d475;stroke-opacity:.22;stroke-width:1;mask-image:linear-gradient(transparent 27%,#000 50%,transparent 89%)}
+.intro-art-label{position:absolute;right:0;top:13%;font-size:9px;letter-spacing:1.8px;line-height:1.8;color:#b7cbb5}.intro-coordinate{position:absolute;bottom:9%;left:25%;font-size:9px;letter-spacing:2px;color:#b1c6a7}
+.intro-footer{display:flex;justify-content:space-between;gap:20px;align-items:center;border-top:1px solid #ffffff20;padding:23px 0;color:#a5bcad;font-size:11px}.intro-demo{display:flex;align-items:center;gap:8px}.intro-demo i{width:5px;height:5px;border-radius:50%;background:#c3e956}
+@keyframes intro-reveal{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes intro-grow{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:scale(1)}}
+@media(min-width:1600px){.intro-main{gap:70px}}
+@media(max-width:900px){.intro-edition{display:none}.intro-main{gap:0}.intro h1{font-size:clamp(40px,6vw,64px);letter-spacing:-1.5px}.intro-art-label{display:none}}
+@media(max-width:600px){.intro-header{padding:22px 0}.intro-main{grid-template-columns:1fr;padding:44px 0 24px}.intro h1{font-size:48px}.intro-art{max-width:320px;justify-self:center;margin-top:10px}.intro-footer{align-items:flex-start;flex-direction:column;gap:8px}.intro-eyebrow{font-size:9px;letter-spacing:1.5px}}
+@media(prefers-reduced-motion:reduce){.intro *{animation:none!important;transition:none!important}}

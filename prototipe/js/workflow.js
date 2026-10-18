@@ -85,7 +85,7 @@ function pageWorkflow(role,title,body,active) {
   return shell(role,active || '#/'+role+'/'+(role==='petugas'?'calon-kontrak':role==='manajer'?'antrean':'arsip'),
     '<h1 class="page">'+title+'</h1><p class="sub">'+ARSIP_TINJAU+' · '+judulTahap()+' · '+(wf().usulan?'Usulan v'+wf().usulan.versi:'Draf belum diajukan')+'</p>'+
     '<div class="meta-chip">Demo desktop · Data tersimpan di browser ini</div>'+
-    (masalahSimpan?'<div class="alert">'+esc(masalahSimpan)+'</div>':'')+body+
+    (masalahSimpan?'<div class="alert">'+esc(masalahSimpan)+'</div>':'')+pemanduDemo()+body+
     '<p class="foot-note mt24">Tandur mencatat pembiayaan; pembayaran dilakukan langsung oleh lembaga. Gunakan data contoh untuk demo.</p>');
 }
 function summary(s = akadKini()) {
@@ -467,6 +467,11 @@ ROUTES['/dps/laporan']={screen:'D4',render:()=>pageWorkflow('dps','Laporan penga
   '<div class="card mt24"><h2>Ringkasan laporan</h2><p>'+statsDemo().aktif+' kontrak ditandatangani · '+statsDemo().selesai+' penyerahan selesai · '+statsDemo().bukti+' bukti.</p><div class="btn-row">'+tombol('ekspor','Unduh laporan CSV')+tombol('cetak','Cetak / simpan PDF')+'</div></div>','#/dps/laporan')};
 
 function setelahRenderWorkflow() {
+  if (masalahSimpan && !document.querySelector('#app .alert')) {
+    const notice=document.createElement('div');
+    notice.className='alert'; notice.setAttribute('role','alert'); notice.textContent=masalahSimpan;
+    document.getElementById('app').prepend(notice);
+  }
   const form=wf().form[location.hash] || {};
   document.querySelectorAll('form input, form textarea, #alasan-keputusan, #alasan-serah, #alasan-keberatan').forEach(el=>{
     const key=el.id || (el.name+':'+el.value), value=form[key];
@@ -541,6 +546,44 @@ ROUTES['/dps/persetujuan']={screen:'D3',render:()=>pageWorkflow('dps','Tinjau pa
 ROUTES['/admin/parameter']={screen:'N4',render:()=>pageWorkflow('admin','Penerapan parameter',tabelParameter()+
   '<div class="note mt24">Tombol menerapkan versi yang sudah disetujui DPS sekarang untuk uji berikutnya. Tanggal rencana dicatat sebagai metadata; tidak ada penjadwal otomatis.</div><div class="btn-row">'+
   tombol('paramTerapkan','Terapkan versi disetujui',STATE.param.keputusan!=='disetujui')+tautan('/petugas/calon-kontrak','Lihat ambang petugas')+'</div>','#/admin/parameter')};
+function langkahDemo() {
+  const w=wf();
+  if (['draf','perbaikan','ditolak'].includes(w.tahap)) {
+    if (!w.petani.persetujuan) return ['/petugas/pendataan','Mulai dari pendataan dan persetujuan petani.','Isi pendataan'];
+    if (!buktiDasar()) return ['/petugas/cadangan','Lengkapi bukti dasar. Bukti contoh tersedia untuk presentasi.','Lengkapi bukti'];
+    if (!w.hasil) return ['/petugas/calon-kontrak','Atur volume dan harga, kemudian jalankan empat skenario.','Jalankan uji'];
+    return ['/petugas/simulasi','Tinjau hasil dan kirim usulan kepada manajer.','Lihat hasil uji'];
+  }
+  if (w.tahap==='diajukan') return ['/manajer/detail-persetujuan','Berikutnya: manajer memeriksa bukti dan mencatat keputusan.','Tinjau usulan'];
+  if (w.tahap==='disetujui') {
+    if (!w.dibaca) return ['/petugas/ringkasan-akad','Usulan disetujui. Bacakan ringkasan kepada petani.','Bacakan ringkasan'];
+    if (!w.jawaban.every(x=>x==='benar')) return ['/petugas/uji-pemahaman','Catat lima jawaban petani sebelum tanda tangan.','Uji pemahaman'];
+    return ['/petugas/tanda-tangan','Pemahaman lengkap. Catat bukti tanda tangan.','Bukti tanda tangan'];
+  }
+  if (w.tahap==='ditandatangani') return ['/petugas/kontrak','Catat bukti pembayaran penuh dari lembaga.','Bukti pembayaran'];
+  if (w.tahap==='dibayar') return ['/petugas/serah-terima','Catat berat, mutu, saksi, dan bukti penyerahan.','Catat penyerahan'];
+  if (w.tahap==='penyerahan') return ['/manajer/detail-kontrak','Manajer meninjau penyerahan dan penyelesaian keberatan.','Tinjau penyerahan'];
+  return ['/dps/arsip','Alur selesai. Lihat dokumen dan jejak keputusan.','Buka arsip'];
+}
+function pemanduDemo() {
+  const [route,text,label]=langkahDemo();
+  if (location.hash==='#'+route) return '';
+  return '<aside class="demo-next" aria-label="Langkah demo berikutnya"><p>'+text+'</p>'+tautan(route,label)+'</aside>';
+}
+function infoPublik(judul,isi) {
+  return '<div class="pub">'+phead()+'<div class="pform"><h1>'+judul+'</h1>'+isi+'</div>'+pfoot()+'</div>';
+}
+ROUTES['/panduan-demo']={screen:'P6',render:()=>infoPublik('Demo Tandur untuk presentasi',
+  '<p class="sub">Satu kasus petani, satu alur utuh. Semua data contoh dapat diubah; tidak ada pembayaran atau pesan yang dikirim.</p>'+
+  '<div class="card mt24"><h2>Alur yang bisa ditunjukkan</h2><ol><li>Petugas mencatat data dan bukti.</li><li>Ubah harga menjadi Rp6.030/kg dengan volume 800 kg, lalu jalankan uji.</li><li>Manajer meninjau risiko, memverifikasi bukti, dan menyetujui dengan alasan.</li><li>Bacakan ringkasan, catat lima jawaban, serta bukti tanda tangan dan pembayaran.</li><li>Catat penyerahan, tinjau sebagai manajer, lalu buka arsip DPS.</li></ol><p>Nilai akad contoh berubah menjadi Rp4.824.000 dan mengikuti seluruh dokumen. Tombol <b>Gunakan bukti contoh</b> membantu demo tanpa berkas pribadi.</p></div>'+
+  '<div class="note mt24"><b>Batas prototipe</b>Peran dapat berpindah untuk demonstrasi. Login/OTP dan pengiriman layanan eksternal adalah simulasi. Data tersimpan di browser ini; reset menghapus data demo.</div>'+
+  '<div class="btn-row">'+tautan(langkahDemo()[0],'Lanjutkan demo')+tautan('/petugas/beranda','Buka dashboard')+'</div>')};
+ROUTES['/privasi']={screen:'P7',render:()=>infoPublik('Data pada prototipe',
+  '<div class="card"><h2>Penyimpanan lokal</h2><p>Isian, bukti, dan jejak demo disimpan di browser yang digunakan. Aplikasi ini tidak mengirimnya ke server Tandur. Berkas yang diunduh tetap berada di perangkat Anda.</p><h2>Gunakan data contoh</h2><p>Prototipe tidak menyediakan keamanan akun produksi. Gunakan nama dan bukti contoh. Pengguna perangkat atau profil browser yang sama dapat mengakses data tersimpan.</p><h2>Menghapus data</h2><p>Gunakan Reset data demo pada sidebar atau hapus data situs melalui pengaturan browser. Berkas cadangan yang sudah diunduh perlu dihapus secara terpisah.</p><p>Ini penjelasan perilaku prototipe, bukan kebijakan layanan produksi.</p></div>')};
+ROUTES['/peran']={screen:'P9',render:()=>infoPublik('Peran dalam satu alur',
+  '<div class="pgrid">'+PERAN.map(p=>'<div class="pcard"><h2>'+p[0]+'</h2><p>'+p[1]+'</p>'+tautan('/masuk/'+p[3],'Buka demo '+p[2])+'</div>').join('')+'</div><div class="btn-row">'+tautan('/panduan-demo','Panduan urutan demo')+'</div>')};
+ROUTES['/syarat-demo']={screen:'P8',render:()=>infoPublik('Ketentuan penggunaan demo',
+  '<div class="card"><p>Tandur pada halaman ini adalah prototipe untuk demonstrasi. Data, ambang, mutu, harga layanan, dan dokumen merupakan contoh atau usulan.</p><p>Hasil uji tidak menjadi persetujuan pembiayaan otomatis. Pembayaran, pengiriman pesan, dan penerbitan akun nyata tidak dilakukan oleh prototipe.</p><p>Gunakan data contoh, periksa ringkasan sebelum presentasi, dan unduh cadangan bila diperlukan. Reset menghapus data kerja lokal.</p></div><div class="btn-row">'+tautan('/panduan-demo','Panduan demo')+'</div>')};
 ROUTES['/admin/templat']={screen:'N5',render:()=>pageWorkflow('admin','Dokumen dan identitas',
   '<div class="card"><h2>Logo Tandur</h2>'+logo({ink:true,size:40})+'<p>Logo ini dipakai pada halaman publik, login, sidebar, dan dokumen.</p><h2>Pratinjau dokumen dari data aktif</h2><div class="btn-row">'+
   tautan('/petugas/akad','Ringkasan akad')+tautan('/petugas/berita-acara','Berita acara')+'</div><p>Gunakan Cetak / simpan PDF pada halaman dokumen.</p></div>','#/admin/templat')};

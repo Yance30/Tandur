@@ -27,7 +27,7 @@ function renderLogin(role) {
     '<h1 id="login-title">Masuk sebagai ' + LOGIN_LABEL[role][0] + '</h1>' +
     '<p class="sub" id="login-sub">Lanjutkan ke ' + LOGIN_LABEL[role][1] + '.</p>' +
     '<div class="tabs">' + tabs + '</div>' +
-    '<div class="note m220"><b>Hak akses mengikuti akun lembaga</b>Pilihan peran hanya konteks masuk. Petugas menuju Beranda petugas; manajer menuju Portofolio; DPS menuju Arsip akad; admin menuju Kelola akun. Verifikasi dua langkah wajib untuk manajer, DPS, dan admin.</div>' +
+    '<div class="note m220"><b>Masuk ke demo</b>Pilih peran untuk melihat alur petugas, manajer, DPS, atau admin. Kata sandi dan verifikasi pada prototipe ini disimulasikan; jangan gunakan kredensial asli.</div>' +
     '<div class="field"><label>Lembaga</label><select><option>' + TDATA.lembaga + '</option></select></div>' +
     '<div class="field"><label>Email atau nomor telepon</label><input id="login-email" value="' + LOGIN_EMAIL[role] + '"></div>' +
     '<div class="field"><label>Kata sandi</label><input type="password" value="contoh-sandi"></div>' +
@@ -56,17 +56,17 @@ function authRight(inner) {
 function pwdField(label, eye) {
   return '<div class="field"><label>' + label + '</label>' +
     '<div class="flex-row"><input type="password" value="contoh-sandi-12" class="flex1">' +
-    (eye ? '<label class="check m0 nowrap"><input type="radio" checked> Tampilkan</label>' : '') +
+    (eye ? '<button type="button" class="password-toggle" data-toggle-password aria-pressed="false">Tampilkan</button>' : '') +
     '</div></div>';
 }
 
 function renderVerif(role) {
-  const kotak = ['2', '7', '1', '', '', ''].map((v, i) =>
+  const kotak = ['2', '7', '1', '8', '4', '0'].map((v, i) =>
     '<input id="otp-' + (i + 1) + '" value="' + v + '" maxlength="1" inputmode="numeric" autocomplete="one-time-code" aria-label="Digit verifikasi ke-' + (i + 1) + '"' +
     (v ? '' : ' placeholder="·"') + (i === 3 ? ' class="on"' : '') + '>').join('');
   return '<div class="login">' + authLeft() + authRight(
     '<h1>Pastikan ini Anda.</h1>' +
-    '<p class="sub">Masukkan enam digit yang dikirim ke ' + loginMask(role) + '.</p>' +
+    '<p class="sub">Kode contoh sudah diisi untuk demo ' + loginMask(role) + '. Tidak ada email atau SMS yang dikirim.</p>' +
     '<div class="note m220"><b>Wajib untuk manajer, DPS, dan admin</b>' + TDATA.lembaga + ' · ' + LOGIN_LABEL[role][1] + '</div>' +
     '<div class="field"><label id="lbl-otp" for="otp-1">Kode verifikasi</label></div>' +
     '<div class="otp mn12" role="group" aria-labelledby="lbl-otp">' + kotak + '</div>' +

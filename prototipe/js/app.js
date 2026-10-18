@@ -55,13 +55,13 @@ function rapikanA11y() {
 }
 
 function render() {
-  const path = location.hash.slice(1) || '/beranda';
+  const path = location.hash.slice(1) || '/intro';
   if (path === '/masuk/sesi-berakhir') sesiSelesai();
   const route = ROUTES[path];
   let html;
   if (route) {
     html = route.render();
-    document.title = 'Tandur — ' + route.screen;
+    document.title = path === '/intro' ? 'Tandur — Menumbuhkan kejelasan' : 'Tandur — ' + route.screen;
   } else {
     const [code, label] = metaFor(path);
     const body = placeholder(code, label);
@@ -80,6 +80,15 @@ function render() {
 }
 
 document.addEventListener('click', e => {
+  const toggle = e.target.closest('[data-toggle-password]');
+  if (toggle) {
+    const input = toggle.parentElement.querySelector('input');
+    const visible = input.type === 'password';
+    input.type = visible ? 'text' : 'password';
+    toggle.textContent = visible ? 'Sembunyikan' : 'Tampilkan';
+    toggle.setAttribute('aria-pressed', String(visible));
+    return;
+  }
   const back = e.target.closest('[data-back]');
   if (back) { e.preventDefault(); history.back(); return; }
 
