@@ -472,7 +472,7 @@ ROUTES['/petugas/kontrak'] = {
       '<tr><td>Jumlah</td><td>Rp4.800.000 · penuh, tidak dicicil</td></tr>' +
       '<tr><td>Pemeriksa</td><td>Ayu P. · 16 Jan 2027 14.20 WIB</td></tr></table>' +
       '<h3 class="mt20">Bukti pembayaran</h3>' +
-      '<div class="field"><input value="bukti-transfer-0012.pdf · 248 KB"></div>' +
+      '<div class="field"><input value="bukti-transfer-0012.pdf · 248 KB" aria-label="Berkas bukti pembayaran"></div>' +
       '<div class="verif">✓ Terverifikasi · Tambah bukti</div>' +
       '<div class="btn-row"><a class="btn btn-primary" href="#/petugas/akad">Lihat bukti</a><button class="btn btn-ghost" data-aksi="simpan" data-label="Tambah dokumen pendukung" data-objek="Dokumen pendukung bukti bayar TDR-2027-0012-01">Tambah dokumen pendukung</button></div></div>' +
       '<div class="card"><h2>Penyerahan yang dijadwalkan</h2><p><b>20 Mei 2027 · 09.00 WIB</b></p>' +

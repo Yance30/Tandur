@@ -62,14 +62,14 @@ function pwdField(label, eye) {
 
 function renderVerif(role) {
   const kotak = ['2', '7', '1', '', '', ''].map((v, i) =>
-    '<input value="' + v + '" maxlength="1" inputmode="numeric" autocomplete="one-time-code" aria-label="Digit verifikasi ke-' + (i + 1) + '"' +
+    '<input id="otp-' + (i + 1) + '" value="' + v + '" maxlength="1" inputmode="numeric" autocomplete="one-time-code" aria-label="Digit verifikasi ke-' + (i + 1) + '"' +
     (v ? '' : ' placeholder="·"') + (i === 3 ? ' class="on"' : '') + '>').join('');
   return '<div class="login">' + authLeft() + authRight(
     '<h1>Pastikan ini Anda.</h1>' +
     '<p class="sub">Masukkan enam digit yang dikirim ke ' + loginMask(role) + '.</p>' +
     '<div class="note m220"><b>Wajib untuk manajer, DPS, dan admin</b>' + TDATA.lembaga + ' · ' + LOGIN_LABEL[role][1] + '</div>' +
-    '<div class="field"><label>Kode verifikasi</label></div>' +
-    '<div class="otp mn12">' + kotak + '</div>' +
+    '<div class="field"><label id="lbl-otp" for="otp-1">Kode verifikasi</label></div>' +
+    '<div class="otp mn12" role="group" aria-labelledby="lbl-otp">' + kotak + '</div>' +
     '<p class="sub">Kode berlaku 5 menit. Jangan bagikan kepada siapa pun.</p>' +
     '<div class="btn-row"><button class="btn btn-primary" data-role="' + role + '" data-login="1">Verifikasi → ' + LOGIN_LABEL[role][1] + '</button></div>' +
     '<p class="sub mt18">Kirim ulang dalam 00:42</p>' +
