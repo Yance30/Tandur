@@ -5,11 +5,7 @@ function rp(n) { return 'Rp' + n.toLocaleString('id-ID'); }
 function logo(opts) {
   const o = opts || {};
   return '<span class="logo' + (o.ink ? ' ink' : '') + '"' + (o.size ? ' style="font-size:' + o.size + 'px"' : '') + '>' +
-    '<svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true" focusable="false">' +
-    '<rect x="1" y="11" width="4.5" height="14" rx="1.2" fill="#8FD44E"/>' +
-    '<rect x="7.5" y="6" width="4.5" height="19" rx="1.2" fill="#C3E956"/>' +
-    '<rect x="14" y="2" width="4.5" height="23" rx="1.2" fill="#C3E956"/>' +
-    '<rect x="20.5" y="9" width="4.5" height="16" rx="1.2" fill="#8FD44E"/></svg>tandur</span>';
+    '<img class="brand-mark" src="assets/logo-tandur.png" alt="" width="44" height="38">tandur</span>';
 }
 
 function turi(size) {
@@ -99,7 +95,7 @@ function shell(role, activeHref, inner) {
     '<a href="#/beranda" data-aksi="resetDemo">Reset data demo</a></div></aside>' +
     '<main class="main"><div class="topbar">' +
     '<div class="search"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" focusable="false"><circle cx="6" cy="6" r="4.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M9.5 9.5 L13 13" stroke="currentColor" stroke-width="1.5"/></svg> Cari kode petani atau akad…</div>' +
-    '<div class="right"><span>Notifikasi (3)</span><span>·</span><span>' + n.user + ' ▾</span></div></div>' +
+    '<div class="right"><span>Demo lokal</span><span>·</span><span>' + n.user + '</span></div></div>' +
     '<div class="content">' + inner + '</div></main></div>';
 }
 

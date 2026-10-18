@@ -227,14 +227,14 @@ ROUTES['/petugas/calon-kontrak'] = {
       '<div class="layout"><div class="grid">' +
       '<div class="card"><h2>Volume dan harga kesepakatan</h2>' +
       '<div class="grid g2">' +
-      '<div class="field"><label>q · Volume akad</label><input value="800 kg GKP"></div>' +
-      '<div class="field"><label>Ps · Harga salam</label><input value="Rp6.000 / kg"></div></div>' +
+      inputSimulasi('q', 'q · Volume akad (kg)') +
+      inputSimulasi('ps', 'Ps · Harga salam (Rp/kg)') + '</div>' +
       '<div class="verif">✓ Terverifikasi · calon kesepakatan · Tambah bukti&nbsp;&nbsp;&nbsp;&nbsp;✓ Terverifikasi · catatan harga · Tambah bukti</div>' +
       '<div class="grid g2">' +
-      '<div class="field"><label>Ph · Harga sisa panen</label><input value="Rp6.500 / kg"></div>' +
-      '<div class="field"><label>Pj · Harga jual lembaga</label><input value="Rp6.500 / kg"></div></div>' +
+      inputSimulasi('ph', 'Ph · Harga sisa panen (Rp/kg)') +
+      inputSimulasi('pj', 'Pj · Harga jual lembaga (Rp/kg)') + '</div>' +
       '<div class="verif">= Estimasi · survei lokal · Tambah bukti&nbsp;&nbsp;&nbsp;&nbsp;= Estimasi · catatan pasar · Tambah bukti</div>' +
-      '<div class="field"><label>B · Biaya lembaga</label><input value="Rp240.000"></div>' +
+      inputSimulasi('b', 'B · Biaya lembaga (Rp)') +
       '<div class="verif">= Estimasi · angkut dan penanganan · Tambah bukti</div>' +
       '<div class="grid g2">' +
       '<div class="field"><label>Tanggal penyerahan</label><input value="20 Mei 2027"></div>' +
@@ -242,18 +242,18 @@ ROUTES['/petugas/calon-kontrak'] = {
       '<div class="verif">✓ Terverifikasi · Tambah bukti&nbsp;&nbsp;&nbsp;&nbsp;✓ Terverifikasi · Tambah bukti</div></div>' +
       '<div class="card"><h2>Ambang terkunci · DPS ' + pa.versi + '</h2>' +
       '<div class="grid g2">' +
-      '<div class="field"><label>W_min</label><input value="' + lock() + ' ' + rp(pa.wMin) + '"></div>' +
-      '<div class="field"><label>M_min</label><input value="' + lock() + ' ' + rp(pa.mMin) + '"></div></div>' +
+      '<div class="field"><label>W_min</label><input readonly value="' + lock() + ' ' + rp(pa.wMin) + '"></div>' +
+      '<div class="field"><label>M_min</label><input readonly value="' + lock() + ' ' + rp(pa.mMin) + '"></div></div>' +
       '<div class="verif">Petugas tidak dapat mengubah.&nbsp;&nbsp;&nbsp;&nbsp;Aktif sejak ' + pa.efektif + '.</div>' +
       '<p class="sub">Ambang lokal disepakati dengan petani. Manajer mengusulkan, DPS menyetujui, admin hanya menerapkan versi disetujui. Akad yang sudah ditandatangani tetap memakai versi saat penyusunan.</p></div>' +
       '</div><div class="grid">' +
       '<div class="warn"><h3>Konteks petani</h3><p><b>TDR-0012 · 0,4 ha</b></p>' +
       '<p>Q 1.854 kg; C Rp6.115.036; K Rp4.775.715; R 200 kg; L 0 kg.</p>' +
-      '<div class="note mt14"><b>Uang muka penuh</b>800 × Rp6.000 = Rp4.800.000. Lembaga membayar langsung kepada petani.</div></div>' +
+      '<div class="note mt14"><b>Pembayaran penuh di muka</b>Volume × harga salam dihitung saat uji dijalankan. Lembaga membayar langsung kepada petani.</div></div>' +
       '<div class="note"><b>Perlu verifikasi memblokir finalisasi</b>Estimasi memerlukan dasar bukti dan tinjauan. Data belum ada harus dilengkapi sebelum diteruskan.</div>' +
       '</div></div>' +
-      '<div class="btn-row"><a class="btn btn-primary" href="#/petugas/hasil-uji">Jalankan uji → Hasil uji</a>' +
-      '<button class="btn btn-ghost" data-aksi="simpan">Simpan draf</button><a class="btn btn-ghost" href="#/petugas/detail-petani">Kembali ke Detail petani</a></div>' +
+      '<div class="btn-row"><button class="btn btn-primary" data-aksi="hitungSimulasi">Jalankan uji → Hasil simulasi</button>' +
+      '<button class="btn btn-ghost" data-aksi="resetSimulasi">Pulihkan input contoh</button><a class="btn btn-ghost" href="#/petugas/hasil-uji">Demo persetujuan contoh 800 kg</a><a class="btn btn-ghost" href="#/petugas/detail-petani">Kembali ke Detail petani</a></div>' +
       '<p class="foot-note">Tandur bukan pemberi pembiayaan. Lembaga membayar petani langsung, penuh di muka.</p>');
   }
 };

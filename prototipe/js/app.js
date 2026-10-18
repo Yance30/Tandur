@@ -74,6 +74,8 @@ function render() {
   }
   document.getElementById('app').innerHTML = html;
   rapikanA11y();
+  setelahRenderWorkflow();
+  simpanDemo();
   window.scrollTo(0, 0);
 }
 
@@ -125,6 +127,10 @@ document.addEventListener('click', e => {
 
 document.addEventListener('input', e => {
   const kotak = e.target;
+  if (kotak.dataset.simulasi && kotak.validity.valid) {
+    STATE.simulasi[kotak.dataset.simulasi] = kotak.valueAsNumber;
+    return;
+  }
   if (!kotak.parentElement || !kotak.parentElement.classList.contains('otp')) return;
   if (kotak.value.length < 1) return;
   const next = kotak.nextElementSibling;

@@ -16,6 +16,14 @@ a{color:inherit}
 .shell{display:flex;min-height:100vh}
 .sidebar{width:300px;flex:0 0 300px;background:linear-gradient(180deg,var(--lumbung),#0B3229);color:#DCEFE3;padding:28px 28px 22px;display:flex;flex-direction:column}
 .logo{display:flex;align-items:center;gap:10px;color:#fff;font-family:var(--font-display);font-weight:600;font-size:26px}
+.brand-mark{width:1.65em;height:1.4em;object-fit:contain;flex-shrink:0}
+fieldset{border:0;padding:0;margin:0;min-width:0}
+fieldset:disabled{opacity:.72}
+.quiz-option{display:flex;gap:12px;align-items:flex-start;margin:12px 0;padding:14px;background:var(--table);border:1px solid var(--line);border-radius:10px;cursor:pointer}
+.quiz-option input{margin-top:5px;flex-shrink:0}
+.field textarea{width:100%;min-height:110px;padding:12px;border:1px solid var(--line);border-radius:8px;font:inherit;color:var(--ink)}
+input[type=file]{max-width:100%}
+button:disabled{cursor:not-allowed}
 .sidebar .role{font-family:var(--font-display);font-size:22px;font-weight:500;color:#F2FBF4;margin:36px 0 26px;line-height:1.25}
 .sidebar nav{display:flex;flex-direction:column;gap:4px}
 .sidebar nav a{display:flex;align-items:center;gap:10px;padding:9px 0;color:#BFD8CA;text-decoration:none;font-size:14.5px}

@@ -20,10 +20,10 @@ function pfoot(rows) {
 }
 
 const SISI_P1 = [
-  { nama: 'Modal', st: 'ok', nilai: 'Rp4.800.000', ambang: '≥ K Rp4.775.715', rasio: 1.05 },
+  { nama: 'Modal', st: 'ok', nilai: 'Rp4.800.000', ambang: '≥ K Rp4.775.715', rasio: 4800000 / 4775715 },
   { nama: 'Penyerahan', st: 'ok', nilai: '1.283,2 kg', ambang: '≥ q 800 kg', rasio: 1.6 },
   { nama: 'Manfaat petani', st: 'ok', nilai: 'Rp3.125.764', ambang: '≥ Rp3.000.000', rasio: 1.04 },
-  { nama: 'Kontribusi lembaga', st: 'ok', nilai: 'Rp160.000', ambang: '≥ Rp100.000', rasio: 1.3 }
+  { nama: 'Kontribusi lembaga', st: 'ok', nilai: 'Rp160.000', ambang: '≥ Rp100.000', rasio: 1.6 }
 ];
 
 const PERAN = [
@@ -44,8 +44,8 @@ const ALUR = [
 ];
 
 const SISI_RUMUS = [
-  ['Modal', 'Lembaga membayar penuh di muka, tidak melebihi kebutuhan riil petani.', 'U ≥ K  ·  K = biaya tanam + sarana'],
-  ['Penyerahan', 'Batas serah dijaga agar petani tidak terbebani saat hasil turun.', 'q ≥ batas serah  ·  batas = target − cadangan'],
+  ['Modal', 'Pembayaran penuh di muka mencukupi kebutuhan modal petani.', 'U ≥ K  ·  K = kebutuhan modal'],
+  ['Penyerahan', 'Batas serah dijaga agar petani tidak terbebani saat hasil turun.', 'q ≤ batas serah  ·  batas = Q − R − L'],
   ['Manfaat petani', 'Sisa manfaat petani tetap berarti pada skenario hasil menurun.', 'W ≥ ambang manfaat (Rp)'],
   ['Kontribusi lembaga', 'Margin lembaga wajar, tidak negatif, dan dapat dipertanggungjawabkan.', 'M ≥ ambang kontribusi (Rp)']
 ];
@@ -113,7 +113,7 @@ ROUTES['/beranda'] = {
       '<div class="pgrid c3">' +
       '<div class="pcard"><div class="pmock"><span class="up">Ringkasan akad salam</span>' +
       '<div class="big">Rp4.800.000</div><hr>' +
-      'Dibayar penuh di muka · Volume 1.854 kg GKP<br>Serah Mei 2027 · Desa Pandanrejo' +
+      'Dibayar penuh di muka · Volume akad 800 kg GKP<br>Serah Mei 2027 · Desa Pandanrejo' +
       '<a href="#/petugas/akad">Lihat ringkasan contoh →</a></div></div>' +
       '<div class="pcard"><div class="pchat"><span class="who">Pesan WhatsApp</span>' +
       '<p class="mt100 sub135">Halo, berikut ringkasan akad TDR-2027-0012-01. Harga dibaca bersama sebelum petani setuju.</p>' +

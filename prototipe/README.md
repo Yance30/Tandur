@@ -1,155 +1,123 @@
-# Tandur — prototipe clickable
+# Tandur — demo web desktop
 
-Prototipe antarmuka **Tandur**, perangkat kerja akad salam untuk lembaga keuangan syariah
-(KSPPS/BMT). Semua data di dalamnya **ilustratif**; tidak ada backend, tidak ada login sungguhan,
-dan tidak ada uang yang berpindah.
-
-Tandur bukan pemberi pembiayaan. Pada alur yang dirancang, lembaga membayar petani langsung dan
-penuh di muka; Tandur hanya mencatat, menguji kelayakan, dan menjaga jejak keputusan.
+Perangkat kerja akad salam untuk KSPPS/BMT. Data ilustratif; tanpa backend,
+autentikasi sungguhan, atau perpindahan uang. Pembayaran dilakukan langsung
+oleh lembaga kepada petani, Tandur mencatat buktinya.
 
 ## Menjalankan
 
-Tidak ada build step dan tidak ada dependensi. Buka berkasnya langsung:
+Buka `prototipe/index.html` di browser desktop. Tidak perlu build atau jaringan.
+Font dan logo tersedia lokal. Navigasi memakai hash; back/forward browser berfungsi.
+Halaman operasional menggunakan layout desktop, tanpa halaman khusus mobile.
 
-```
-prototipe/index.html
-```
+Logo asli pengguna disalin tanpa perubahan ke `assets/logo-tandur.png` dan digunakan
+oleh komponen `logo()` pada halaman publik, login, sidebar, dan dokumen, serta favicon.
+Gambar referensi di akar repo bukan halaman aplikasi.
 
-Klik dua kali di Explorer, atau dari shell:
+## Demo dari awal sampai akhir
 
-```bash
-start prototipe/index.html          # Windows
-xdg-open prototipe/index.html       # Linux
-open prototipe/index.html           # macOS
-```
+Demo memiliki satu kasus kerja, `TDR-0012` / `TDR-2027-0012-01`. Semua layar utama
+membaca kasus yang sama. Gunakan **Reset data demo** untuk mengulang.
 
-Prototipe berjalan lewat `file://`. Font sudah di-self-host di `css/fonts/` sehingga tampilan tetap
-sama tanpa jaringan. Navigasi memakai hash (`#/…`), jadi tombol back/forward browser berfungsi.
+1. **Petugas → Pendataan**: isi identitas contoh, luas, panen, tanggal/lokasi,
+   serta persetujuan pencatatan. Simpan untuk lanjut ke biaya.
+2. **Biaya**: edit delapan komponen ekonomi dan tunai, lalu dana sendiri.
+   Bagian tunai tidak boleh lebih besar daripada total ekonomi.
+3. **Cadangan & bukti**: simpan R/L. Tambahkan empat jenis bukti dasar
+   (persetujuan, panen, biaya, cadangan). **Gunakan bukti contoh** membuat berkas
+   teks berlabel CONTOH; atau pilih berkas PDF/PNG/JPEG/TXT milik sendiri.
+4. **Calon kontrak**: ubah q, Ps, Ph, Pj, dan B, kemudian **Jalankan uji**.
+   Hasil dasar, panen −20%, panen −40%, dan harga −10% dihitung dari input.
+   Klik **Kirim ke antrean manajer**. Bukti dasar wajib lengkap.
+5. **Manajer → Antrean**: buka usulan. Periksa bukti, isi alasan, lalu setujui,
+   minta perbaikan, atau tolak. Persetujuan membutuhkan 4/4 lolos pada dasar
+   dan −20%, serta konfirmasi tinjauan bukti. Hasil stress ekstrem tetap terlihat.
+6. Jalur koreksi: minta perbaikan → petugas mengubah data → uji ulang → kirim
+   ulang. Versi sebelumnya dan alasan keputusannya tetap tersimpan.
+7. **Ringkasan akad**: setelah disetujui, tandai dibacakan. Isi lima jawaban
+   pada **Uji pemahaman**. Jawaban salah harus dijelaskan ulang; tanda tangan
+   terkunci sampai semua benar.
+8. **Tanda tangan**: lampirkan bukti dan konfirmasi pemeriksaan. Lanjut ke
+   **Kontrak & pembayaran**, lampirkan bukti bayar, lalu konfirmasi pembayaran penuh.
+9. **Serah terima**: isi berat, kadar air, kotoran, saksi, catatan, dan keberatan
+   jika ada; lampirkan bukti timbang/mutu lalu ajukan ke manajer.
+10. **Manajer → Detail kontrak**: selesaikan keberatan jika ada dan isi alasan.
+    Finalisasi diblokir jika selisih berat melebihi ±1%, kadar air >25%, kotoran >3%,
+    atau keberatan belum selesai. Manajer dapat meminta perbaikan data lapangan.
+11. **DPS**: buka arsip, jejak, dan laporan. Dokumen ringkasan akad dan berita acara
+    menggunakan nilai dari usulan yang sama; gunakan **Cetak / simpan PDF**.
 
-> Desain khusus **web desktop**. Layar seluler (F16–F19, A7, P4) hanya ditampilkan sebagai
-> placeholder berlabel, bukan tampilan responsif.
+Untuk menunjukkan perubahan harga yang tetap lolos dengan data awal, coba
+800 kg × Rp6.030: nilai akad menjadi Rp4.824.000 sampai dokumen dan dashboard.
+Angka ini hanya contoh pengujian, bukan rekomendasi harga atau pembiayaan.
 
-## Titik masuk
+## Parameter dan versi
 
-Landing: `#/beranda` → **Masuk** (`#/masuk`). Pilih tab peran, lalu tombol masuk.
-Setiap peran diarahkan ke berandanya sendiri — bukan ke manajer.
+Manajer mengusulkan ambang → DPS menyetujui dengan catatan → admin menerapkan.
+Penerapan berlangsung saat tombol diklik untuk uji berikutnya; tidak ada penjadwal.
+Setiap hasil uji dan usulan menyimpan salinan parameter. Mengaktifkan versi baru
+tidak mengubah akad yang sedang ditinjau atau sudah disetujui.
+Data yang telah dikirim terkunci; revisi hanya tersedia setelah perbaikan/penolakan.
 
-| Peran | Verifikasi 2 langkah | Beranda |
-| --- | --- | --- |
-| Petugas lapangan (Rina S.) | tidak | `#/petugas/beranda` |
-| Manajer pembiayaan (Ayu P.) | wajib | `#/manajer/portofolio` |
-| Dewan Pengawas Syariah (Hasan M.) | wajib | `#/dps/arsip` |
-| Admin lembaga (Dimas A.) | wajib | `#/admin/kelola-akun` |
+## Perhitungan
 
-Jalan pintas langsung: `#/masuk/petugas`, `#/masuk/manajer`, `#/masuk/dps`, `#/masuk/admin`.
-Layar pendukung: `#/masuk/aktivasi` (A5), `#/masuk/lupa` (A3), `#/masuk/atur-ulang` (A4),
-`#/masuk/sesi-berakhir` (A6), `#/bantuan` (S3 — contoh keadaan error, empty state, dan kontrol
-terkunci).
+- C = jumlah biaya ekonomi; K = maksimum(0, biaya tunai − dana sendiri).
+- U = q × Ps.
+- Batas serah = Q skenario − R − L; pemeriksaan q ≤ batas serah.
+- W = U + (Q skenario − q) × Ph skenario − C.
+- M = q × (Pj skenario − Ps) − B.
+- Harga −10% menurunkan Ph dan Pj, bukan harga salam Ps.
+- Batas bawah Ps = maksimum(K/q, (W_min+C−(Q skenario−q)×Ph skenario)/q).
+- Batas atas Ps = Pj skenario−(B+M_min)/q.
 
-## Alur demo yang dimaksud
+Rentang dibulatkan ke dalam: bawah ke atas, atas ke bawah dalam rupiah bulat.
+Rentang tidak tersedia jika batas serah gagal atau bawah melebihi atas.
+W menilai seluruh sisa panen, termasuk cadangan; bukan kas bersih petani.
+Sensitivitas bukan probabilitas. Model dan ambang tetap ilustratif.
 
-Rantai tata kelola: **manajer mengusulkan → DPS menyetujui → admin menerapkan**. Admin tidak
-berwenang menentukan ambang; petugas tidak berwenang menyetujui pembiayaan.
+## Penyimpanan, berkas, dan ekspor
 
-1. **Petugas** — `#/petugas/pendataan` → `biaya` → `cadangan` (3 langkah pendataan).
-   Lanjut ke `#/petugas/calon-kontrak`, lalu `#/petugas/hasil-uji` (4 skenario sensitivitas).
-   Klik **Kirim ke Antrean persetujuan**.
-2. **Manajer** — `#/manajer/antrean` (M2) → **Tinjau** → `#/manajer/detail-persetujuan` (M3).
-   Tombol **Setujui usulan** hanya aktif bila bukti lengkap. Untuk mencoba jalur koreksi:
-   **Kirim permintaan perbaikan** → kembali ke layar petugas → **Kirim ulang setelah perbaikan**.
-3. **Petugas** — `#/petugas/ringkasan-akad` (bacakan) → `uji-pemahaman` → `tanda-tangan` →
-   `serah-terima` → **Ajukan ke Manajer** → `keberatan` bila ada selisih.
-4. **Manajer** — setujui serah terima atau catat keberatan di `#/manajer/detail-kontrak`.
-   Kelengkapan arsip DPS ikut berubah (10/12 → 11/12).
-5. **DPS** — `#/dps/arsip`, `#/dps/jejak` (jejak tidak dapat ditimpa),
-   `#/dps/persetujuan` → **Setujui usulan parameter v1.3**, `#/dps/laporan`.
-6. **Admin** — `#/admin/parameter` (N4) → **Terapkan v1.3 sekarang**. Versi aktif baru lalu
-   muncul terkunci di layar calon kontrak petugas. `#/admin/kelola-akun` untuk nonaktifkan/undang
-   pengguna, `#/admin/log` untuk jejak audit.
+- State, input formulir utama, bukti, dan jejak tersimpan pada `localStorage`
+  dengan kunci `tandur-demo-v2`. Refresh mempertahankan data pada browser/profil yang sama.
+- Perilaku `localStorage` pada `file://` bergantung browser; memindahkan file,
+  mengganti profil, private browsing, atau menghapus data browser dapat menghilangkan state.
+- Bukti maksimum 1 MB per berkas dan total 2 MB. Bukti disimpan di browser,
+  tanpa diunggah ke layanan luar. Unduhan mengembalikan isi berkas yang sama.
+- CSV benar-benar diunduh; PDF memakai dialog cetak browser.
+- **Unduh cadangan data** menghasilkan JSON. Pemulihan JSON melalui UI belum tersedia.
+- **Siapkan teks pesan** menyediakan teks untuk disalin, tanpa mengirim pesan.
+- **Reset data demo** menghapus state kasus saat ini beserta bukti/jejak lokal.
+- Jika penyimpanan gagal, UI memberi peringatan. Gunakan berkas contoh kecil dan
+  unduh cadangan. Jangan masukkan data pribadi nyata ke demo.
 
-Semua peristiwa tercatat pada `#/admin/log` (N6) dan `#/dps/jejak` (D2).
+## Struktur kode
 
-**Mengembalikan keadaan awal:** tautan **Reset data demo** di kaki sidebar setiap layar, atau
-`#/beranda` setelah reset. Tidak perlu memuat ulang halaman.
+`index.html` memuat skrip dalam urutan berikut:
 
-## Dokumen yang dapat dicetak
+1. `data.js`, `state.js`: data contoh, state awal, aksi akun/log/toast.
+2. `ui.js`: komponen bersama, logo, shell desktop, navigasi dan grafik Larik.
+3. `screens_*.js`: halaman publik, autentikasi demo, admin dan rancangan layar awal.
+4. `simulasi.js`: fungsi hitung empat skenario dan komponen input numerik.
+5. `workflow.js`: sumber utama alur operasional terpadu, penyimpanan, bukti,
+   validasi langkah, dokumen, dashboard, parameter, dan laporan. Registrasi route
+   di berkas ini menggantikan rancangan statis pada `screens_*.js`.
+6. `app.js`: router dan delegasi event, diikuti pemulihan input formulir.
 
-`#/petugas/akad` (S1 ringkasan akad) dan `#/petugas/berita-acara` (S2) punya bilah dokumen dengan
-tombol **Cetak / simpan PDF**. Bilah, sidebar, topbar, tab, dan baris tombol disembunyikan pada
-`@media print`; margin halaman 16 mm; kartu tidak terpotong antar halaman.
+Semua perubahan tampilan logo dilakukan melalui `logo()` di `ui.js`.
+Fitur yang belum terhubung di luar alur utama diberi label **(simulasi)**.
+Login, OTP, pengiriman undangan, integrasi WhatsApp, dan layanan eksternal tetap demo.
+Jejak lokal bukan audit yang tahan manipulasi; reset browser dapat menghapusnya.
 
-## Struktur
+## Verifikasi browser
 
-```
-index.html            titik masuk + urutan pemuatan skrip
-css/fonts.css         @font-face Jost & Public Sans (woff2, font-display: swap)
-css/fonts/            4 berkas woff2 (latin + latin-ext, weight 400–700)
-css/app.css           token desain, komponen, kelas utilitas, @media print
-js/data.js            TDATA — data dummy beku (lembaga, kontrak, uji, musim)
-js/state.js           STATE, AKSI, jam simulasi, jejak, log, toast
-js/ui.js              ROUTES, shell(), NAV, komponen render (card, tbl, pill, logo, turi)
-js/screens_publik.js  P1–P5 (landing, cara kerja, ajukan)
-js/screens_auth.js    A1–A6, S1–S3 (auth, dokumen, bantuan)
-js/screens_petugas.js F1–F15
-js/screens_manajer.js M1–M6
-js/screens_dps.js     D1–D4
-js/screens_admin.js   N1–N6
-js/app.js             router, delegasi klik/input, rapikanA11y()
-```
+Memerlukan Node.js, Playwright, dan Microsoft Edge. Ini dependensi pengujian saja.
 
-### Urutan pemuatan itu penting
-
-`data.js` → `state.js` → `ui.js` → layar → `app.js`. `state.js` membaca `TDATA` saat dimuat, jadi
-harus datang setelah `data.js`. Nilai turunan yang dipakai lintas berkas (`TOTAL_KONTRAK`,
-`riwayatVersi()`, `arsipBelumLengkap()`) ditaruh di `state.js` agar tidak kena *temporal dead zone*
-`const` pada berkas layar.
-
-### Menambah layar
-
-```js
-ROUTES['/peran/nama-layar'] = {
-  screen: 'KODE',
-  render() {
-    return shell('peran', '#/peran/nama-layar', '<h1 class="page">Judul</h1>' + …);
-  }
-};
-```
-
-`shell()` menambahkan sidebar + topbar sesuai peran; argumen kedua adalah item nav yang ditandai
-aktif. Layar di luar `ROUTES` otomatis jatuh ke placeholder berlabel.
-
-### Menambah aksi
-
-Aksi tidak ditulis per layar. Pasang atribut, daftarkan handler-nya di tabel `AKSI` (`js/state.js`):
-
-```html
-<button class="btn btn-primary" data-aksi="namaAksi" data-label="Simpan X" data-objek="Y">…</button>
+```text
+node prototipe/tests/demo.cjs
 ```
 
-`jalankanAksi()` memanggil `AKSI.namaAksi(el, …)`, yang biasanya memutakhirkan `STATE`, memanggil
-`tambahJejak()` / `catatLog()`, lalu `render()` dan `toast(pesan, 'ok'|'gagal'|'tunggu')`.
-Tombol `.btn` tanpa `data-aksi` tetap memberi toast "belum terhubung ke data" supaya tidak ada
-kontrol mati yang membingungkan.
-
-Waktu pada prototipe adalah jam simulasi 2027 yang maju 2 menit **per aksi** (`waktuAksi()`,
-di-memo per aksi) sehingga jejak, log, dan label layar dalam satu aksi selalu sama.
-
-## Aksesibilitas
-
-- Label isian dipasangkan otomatis ke kontrolnya oleh `rapikanA11y()` setelah setiap render
-  (`label[for]`), jadi penulis layar tidak perlu memberi `id` manual.
-- Semua `button` diberi `type="button"`, semua `th` tabel diberi `scope="col"`.
-- `.tabs` berperan `tablist` dengan `role="tab"` + `aria-selected`; sidebar ber-`aria-label`.
-- Fokus keyboard terlihat: ring `:focus-visible` berwarna lime di permukaan gelap.
-- Kotak OTP punya `inputmode="numeric"`, `autocomplete="one-time-code"`, `aria-label` per digit,
-  dan maju otomatis antar digit.
-- SVG dekoratif (logo, Turi) ber-`aria-hidden`.
-
-## Batasan yang disengaja
-
-- Tidak ada validasi formulir sungguhan; isian tidak mengubah hasil perhitungan.
-- Angka uji kelayakan berasal dari data dummy yang dihitung di `state.js`, bukan engine nyata.
-- Unggah bukti, ekspor CSV/PDF, WhatsApp, dan sinkronisasi offline adalah simulasi (toast /
-  `window.print()` saja).
-- Peran dipilih saat masuk untuk keperluan demo; pada sistem nyata hak akses mengikuti akun yang
-  diterbitkan lembaga.
+Pastikan `playwright` tersedia pada jalur modul Node (`NODE_PATH` bila perlu).
+Tes memeriksa render semua route dan logo, formulir yang bertahan setelah refresh,
+validasi, unggah/unduh aktual, revisi dan snapshot parameter, blokir persetujuan,
+pemahaman, tanda tangan/pembayaran, toleransi penyerahan, keberatan, dokumen,
+dashboard, CSV, dan reset. Screenshot dibuat di `tmp/` pada akar proyek.

@@ -59,6 +59,8 @@ function muatState() {
   const p = TDATA.parameter;
   STATE = {
     sesi: null,
+    simulasi: { q: 800, ps: 6000, ph: 6500, pj: 6500, b: 240000 },
+    hasilSimulasi: null,
     menit: JAM_DEMO.mulai,
     users: USERS_AWAL.map(u => ({ ...u })),
     log: LOG_AWAL.map(l => ({ ...l })),
@@ -93,9 +95,8 @@ function waktuAksi() {
 }
 
 function peranAktif() {
-  if (STATE.sesi) return STATE.sesi.role;
   const m = location.hash.match(/^#\/(petugas|manajer|dps|admin)\//);
-  return m ? m[1] : null;
+  return m ? m[1] : STATE.sesi ? STATE.sesi.role : null;
 }
 
 function pelaku() {
@@ -132,6 +133,7 @@ function toast(pesan, jenis) {
   t.className = 'toast ' + (jenis || 'ok');
   t.textContent = pesan;
   wrap.appendChild(t);
+  while (wrap.children.length > 3) wrap.firstElementChild.remove();
   setTimeout(() => { t.classList.add('hilang'); setTimeout(() => t.remove(), 260); }, 4000);
 }
 
@@ -451,5 +453,9 @@ function jalankanAksi(el) {
   jamAksi = null;
   const fn = AKSI[el.dataset.aksi];
   if (!fn) { toast('Tindakan "' + labelAksi(el) + '" belum terhubung ke data di prototipe ini.', 'tunggu'); return; }
-  fn(el);
+  const result = fn(el);
+  if (typeof simpanDemo === 'function') {
+    if (result && typeof result.then === 'function') result.then(simpanDemo).catch(() => toast('Tindakan belum tersimpan. Coba lagi.', 'gagal'));
+    else simpanDemo();
+  }
 }
