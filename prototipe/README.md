@@ -38,6 +38,10 @@ landing page (`#/beranda`). Tautan langsung ke halaman operasional tetap berfung
 `css/refinement.css` menyatukan tampilan publik, autentikasi, dashboard empat peran,
 formulir, tabel, status, dan pratinjau dokumen. `css/intro.css` mengatur pembuka.
 Dokumen tetap memiliki aturan cetak tersendiri; animasi menghormati reduced motion.
+`css/presentation.css` meningkatkan keterbacaan label dan tabel, hierarki dashboard,
+pengelompokan formulir, serta format dokumen. Progres lima tahap membaca status
+kasus; label Final Demo pada ringkasan membutuhkan tanda tangan tercatat, sedangkan
+berita acara membutuhkan penyerahan disetujui dan status selesai.
 
 Galeri `../hasil-ui/index.html` memuat 59 tangkapan layar desktop dengan data contoh.
 Jalankan `tests/export-ui.cjs` untuk memperbarui gambar setelah perubahan UI.

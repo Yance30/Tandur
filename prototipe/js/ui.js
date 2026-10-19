@@ -82,11 +82,29 @@ function sesiBaris(role) {
   return '<span class="sesi">Masuk sebagai ' + s.nama + ' · ' + s.waktu.split(' · ')[1] + '</span>';
 }
 
+function ikonMenu(href) {
+  const paths={
+    home:'M3 10 12 3l9 7v11h-6v-7H9v7H3Z',
+    people:'M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2 M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8 M17 4a4 4 0 0 1 0 7 M22 21v-2a4 4 0 0 0-3-4',
+    document:'M5 3h10l4 4v14H5Z M14 3v5h5 M8 12h8 M8 16h5',
+    approval:'M5 3h14v18H5Z M8 8h8 M8 14l3 3 5-6',
+    delivery:'M3 7h12v11H3Z M15 11h4l3 4v3h-7 M5 20a2 2 0 1 0 0-4 2 2 0 0 0 0 4 M19 20a2 2 0 1 0 0-4 2 2 0 0 0 0 4',
+    message:'M3 4h18v13H9l-6 4Z M7 8h10 M7 12h6',
+    chart:'M3 3v18h18 M7 17v-5 M12 17V7 M17 17v-8',
+    risk:'M12 3 2 21h20Z M12 9v5 M12 17v1',
+    settings:'M4 6h16 M4 12h16 M4 18h16 M8 3v6 M16 9v6 M10 15v6',
+    archive:'M3 3h18v5H3Z M5 8v13h14V8 M9 12h6',
+    audit:'M12 3a9 9 0 1 1-8 5 M3 3v5h5 M12 7v5l4 2',
+    invite:'M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8 M2 21v-2a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v2 M19 7v6 M16 10h6'
+  };
+  const key=href.split('/').pop();
+  const types={beranda:'home','data-petani':'people','calon-kontrak':'document','ringkasan-akad':'document','serah-terima':'delivery',keberatan:'message',portofolio:'chart',antrean:'approval','detail-kontrak':'document',risiko:'risk',parameter:'settings',arsip:'archive',jejak:'audit',persetujuan:'approval',laporan:'chart','kelola-akun':'people',undang:'invite',pengaturan:'settings',templat:'document',log:'audit'};
+  return '<svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="'+paths[types[key]||'document']+'"/></svg>';
+}
 function shell(role, activeHref, inner) {
   const n = NAV[role];
-  const iconPaths = ['M3 10 12 3l9 7v11h-6v-7H9v7H3Z','M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2 M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8 M17 4a4 4 0 0 1 0 7 M22 21v-2a4 4 0 0 0-3-4','M5 3h10l4 4v14H5Z M14 3v5h5 M8 12h8 M8 16h5','M4 4h16v16H4Z M8 9h8 M8 13h8 M8 17h4','M3 17l6-6 4 3 8-10 M15 4h6v6 M3 21h18','M5 4h14v17H5Z M8 8h8 M8 12h8 M8 16h5'];
   const nav = n.items.map((it, i) =>
-    '<a href="' + it[1] + '"' + (it[1] === activeHref ? ' class="active" aria-current="page"' : '') + '><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="' + iconPaths[i % iconPaths.length] + '"/></svg><span>' + it[0] + '</span></a>'
+    '<a href="' + it[1] + '"' + (it[1] === activeHref ? ' class="active" aria-current="page"' : '') + '>'+ikonMenu(it[1])+'<span>' + it[0] + '</span></a>'
   ).join('');
   return '<div class="shell"><aside class="sidebar">' + logo() +
     '<div class="role"><span class="workspace-label">RUANG KERJA</span>' + n.role + '</div><nav>' + nav + '</nav>' +

@@ -81,11 +81,19 @@ function tombol(action,label,disabled=false,extra='') {
   return '<button class="btn '+(disabled?'btn-off':'btn-primary')+'" data-aksi="'+action+'" '+extra+(disabled?' disabled':'')+'>'+label+'</button>';
 }
 const tautan = (href,label) => '<a class="btn btn-ghost" href="#'+href+'">'+label+'</a>';
+function progresAkad() {
+  const w=wf(), tahap=w.tahap;
+  const posisi=['diajukan','perbaikan','ditolak'].includes(tahap)?2:['disetujui','ditandatangani'].includes(tahap)?3:['dibayar','penyerahan','selesai'].includes(tahap)?4:w.hasil?1:0;
+  return '<section class="akad-progress" aria-label="Progres kasus akad"><div class="progress-caption"><b>Progres kasus</b><span>'+judulTahap()+'</span></div><ol>'+['Pendataan','Uji kelayakan','Persetujuan','Akad & pembayaran','Serah terima'].map((label,i)=>{
+    const done=i<posisi || tahap==='selesai';
+    return '<li class="'+(done?'done':i===posisi?'current':'pending')+'"'+(!done&&i===posisi?' aria-current="step"':'')+'><span class="progress-number" aria-hidden="true">'+(done?'✓':i+1)+'</span><span>'+label+'<small>'+(done?'Selesai':i===posisi?'Sedang diproses':'Belum dimulai')+'</small></span></li>';
+  }).join('')+'</ol>'+(['perbaikan','ditolak'].includes(tahap)?'<p class="progress-warning">Usulan '+(tahap==='ditolak'?'ditolak':'perlu diperbaiki')+'. Perbarui draf dan jalankan uji ulang sebelum diajukan kembali.</p>':'')+'</section>';
+}
 function pageWorkflow(role,title,body,active) {
   return shell(role,active || '#/'+role+'/'+(role==='petugas'?'calon-kontrak':role==='manajer'?'antrean':'arsip'),
     '<h1 class="page">'+title+'</h1><p class="sub">'+ARSIP_TINJAU+' · '+judulTahap()+' · '+(wf().usulan?'Usulan v'+wf().usulan.versi:'Draf belum diajukan')+'</p>'+
     '<div class="meta-chip">Demo desktop · Data tersimpan di browser ini</div>'+
-    (masalahSimpan?'<div class="alert">'+esc(masalahSimpan)+'</div>':'')+pemanduDemo()+body+
+    (masalahSimpan?'<div class="alert">'+esc(masalahSimpan)+'</div>':'')+(!location.hash.includes('parameter')&&location.hash!=='#/dps/persetujuan'&&role!=='admin'?progresAkad():'')+(['#/petugas/beranda','#/manajer/portofolio'].includes(location.hash)?'':pemanduDemo())+body+
     '<p class="foot-note mt24">Tandur mencatat pembiayaan; pembayaran dilakukan langsung oleh lembaga. Gunakan data contoh untuk demo.</p>');
 }
 function summary(s = akadKini()) {
@@ -106,7 +114,7 @@ function hasilCards(s) {
 function panelBukti(kategori, bisaUnggah=true) {
   const rows=wf().bukti.filter(b=>kategori.includes(b.jenis));
   return '<div class="card mt24"><h2>Bukti pendukung</h2><p class="sub">Berkas disimpan lokal. PDF, PNG, JPEG, atau teks; maksimum 1 MB per berkas, total 2 MB. Bukti contoh diberi label.</p>'+
-    '<table class="tbl"><tr><th>Jenis</th><th>Berkas</th><th>Aksi</th></tr>'+rows.map(b=>'<tr><td>'+JENIS_BUKTI[b.jenis]+'</td><td>'+esc(b.nama)+(b.contoh?' · CONTOH':'')+'</td><td><button class="aksilink" data-aksi="unduhBukti" data-id="'+b.id+'">Unduh</button></td></tr>').join('')+'</table>'+
+    '<h3 class="form-section-title">Berkas tersimpan · '+rows.length+'</h3><table class="tbl"><tr><th>Jenis</th><th>Berkas</th><th>Aksi</th></tr>'+(!rows.length?'<tr><td colspan="3">Belum ada berkas. '+(bisaUnggah?'Tambahkan melalui pilihan di bawah.':'Bukti belum dilengkapi oleh petugas.')+'</td></tr>':'')+rows.map(b=>'<tr><td>'+JENIS_BUKTI[b.jenis]+'</td><td>'+esc(b.nama)+(b.contoh?' · CONTOH':'')+'</td><td><button class="aksilink" data-aksi="unduhBukti" data-id="'+b.id+'">Unduh</button></td></tr>').join('')+'</table>'+(bisaUnggah?'<h3 class="form-section-title">Tambahkan bukti</h3><p class="sub">Pilih jenis dan berkas, lalu tekan Simpan berkas. Untuk presentasi, gunakan bukti contoh yang sudah diberi label.</p>':'')+
     (bisaUnggah?'<div class="grid g2 mt24"><div class="field"><label for="jenis-bukti">Jenis bukti</label><select id="jenis-bukti">'+kategori.map(k=>'<option value="'+k+'">'+JENIS_BUKTI[k]+'</option>').join('')+'</select></div><div class="field"><label for="file-bukti">Pilih berkas</label><input id="file-bukti" type="file" accept=".pdf,.png,.jpg,.jpeg,.txt"></div></div><div class="btn-row">'+tombol('unggahBukti','Simpan berkas')+tombol('buktiContoh','Gunakan bukti contoh',false,'data-jenis="'+kategori.join(',')+'"')+'</div>':'')+'</div>';
 }
 function formValid(id) { return document.getElementById(id).reportValidity(); }
@@ -288,11 +296,11 @@ AKSI.resetDemo = () => { muatState(); selesaiAksi('Data demo direset.','/beranda
 ROUTES['/petugas/pendataan']={screen:'F3',render(){
   const p=wf().petani;
   return pageWorkflow('petugas','Pendataan petani',stepper('#/petugas/pendataan')+
-    '<form id="form-petani"><fieldset '+(!bolehEdit()?'disabled':'')+'><div class="card"><h2>Identitas, lahan, dan penyerahan</h2><div class="grid g2">'+
+    '<form id="form-petani"><fieldset '+(!bolehEdit()?'disabled':'')+'><div class="card"><h2>Data usaha petani</h2><p class="sub">Lengkapi tiga kelompok data berikut, lalu catat persetujuan petani.</p><h3 class="form-section-title">01 · Identitas petani</h3><div class="grid g2">'+
     field('nama','Nama petani (data contoh)',p.nama,'text','required maxlength="120"')+
-    field('desa','Desa / kelompok',p.desa,'text','required maxlength="120"')+
+    field('desa','Desa / kelompok',p.desa,'text','required maxlength="120"')+'</div><h3 class="form-section-title">02 · Lahan dan perkiraan panen</h3><div class="grid g2">'+
     field('luas','Luas lahan (ha)',p.luas,'number','required min="0.01" max="10000" step="0.01"')+
-    field('Q','Perkiraan panen Q (kg)',p.Q,'number','required min="0.01" max="1000000000" step="0.01"')+
+    field('Q','Perkiraan panen Q (kg)',p.Q,'number','required min="0.01" max="1000000000" step="0.01"')+'</div><h3 class="form-section-title">03 · Rencana penyerahan</h3><div class="grid g2">'+
     field('tanggal','Tanggal penyerahan',p.tanggal,'date','required')+
     field('lokasi','Lokasi penyerahan',p.lokasi,'text','required maxlength="200"')+'</div>'+
     '<p class="sub mt24">Perkiraan panen harus didukung riwayat panen; bukan hasil yang dijamin.</p><label class="check"><input id="consent" type="checkbox" required '+(p.persetujuan?'checked':'')+'> Petani menyetujui pencatatan setelah tujuan dan akses data dijelaskan.</label></div>'+
@@ -303,7 +311,7 @@ ROUTES['/petugas/biaya']={screen:'F4',render(){
   return pageWorkflow('petugas','Biaya satu musim',stepper('#/petugas/biaya')+
     '<form id="form-biaya"><fieldset '+(!bolehEdit()?'disabled':'')+'><div class="card"><h2>Biaya ekonomi dan bagian tunai</h2><table class="tbl"><tr><th>Komponen</th><th>Total ekonomi (Rp)</th><th>Bagian tunai (Rp)</th></tr>'+
     p.biaya.map((r,i)=>'<tr><td>'+r[0]+'</td><td>'+field('total-'+i,r[0]+' total',r[1],'number','required min="0" max="1000000000" step="1"')+'</td><td>'+field('tunai-'+i,r[0]+' tunai',r[2],'number','required min="0" max="1000000000" step="1"')+'</td></tr>').join('')+'</table>'+
-    field('sendiri','Dana sendiri (Rp)',p.sendiri,'number','required min="0" max="1000000000" step="1"')+
+    '<h3 class="form-section-title">Sumber dana petani</h3><p class="sub mb16">Bagian tunai tidak boleh melebihi total ekonomi. Dana sendiri mengurangi kebutuhan kas yang dibiayai.</p>'+field('sendiri','Dana sendiri (Rp)',p.sendiri,'number','required min="0" max="1000000000" step="1"')+
     '<p>Data tersimpan: biaya ekonomi '+rp(c.C)+' · kebutuhan kas '+rp(c.K)+'. Total diperbarui setelah disimpan.</p></div><div class="btn-row">'+tombol('simpanBiaya','Simpan → Cadangan & bukti')+'</div></fieldset></form>', '#/petugas/data-petani');
 }};
 ROUTES['/petugas/cadangan']={screen:'F5',render(){
@@ -424,8 +432,11 @@ ROUTES['/petugas/keberatan']={screen:'F15',render(){
 }};
 function dokumenWorkflow(ba=false) {
   const s=akadKini(), serah=wf().serah, judul=ba?'Berita acara serah terima':'Ringkasan akad salam';
+  const final=ba?serah?.putusan==='disetujui'&&wf().tahap==='selesai':wf().ttd;
+  const status=final?'FINAL DEMO':wf().usulan?'DALAM PROSES':'DRAF';
   return '<div class="doc">'+docBar(judul,ba?'#/petugas/serah-terima':'#/petugas/kontrak','Kembali')+'<div class="wrap"><div class="head">'+logo({ink:true,size:30})+
-    '<div class="right">'+ARSIP_TINJAU+'<br>'+esc(s.parameter.versi)+' · '+judulTahap()+'</div></div><h1>'+judul+'</h1><p>'+esc(TDATA.lembaga)+' · Data demo</p>'+
+    '<div class="right"><span class="document-status">'+status+'</span><br>'+ARSIP_TINJAU+'<br>'+esc(s.parameter.versi)+' · '+judulTahap()+'</div></div><p class="document-kicker">DOKUMEN '+(ba?'PENYERAHAN':'KESEPAKATAN')+' · DATA ILUSTRATIF</p><h1>'+judul+'</h1><p>'+esc(TDATA.lembaga)+' · Data demo</p>'+
+    '<dl class="document-meta"><div><dt>Pihak petani</dt><dd>'+esc(s.petani.nama)+' · '+KODE_TINJAU+'</dd></div><div><dt>Pihak lembaga</dt><dd>'+esc(TDATA.lembaga)+'</dd></div><div><dt>Rencana penyerahan</dt><dd>'+esc(s.petani.tanggal)+'</dd></div><div><dt>Versi usulan</dt><dd>'+(s.versi?'v'+s.versi:'Belum diajukan')+'</dd></div></dl>'+
     '<div class="green"><div class="big">'+(ba?(serah?angkaSimulasi(serah.berat)+' kg diterima':'Belum ada penyerahan'):rp(s.input.q*s.input.ps))+'</div></div>'+
     '<table class="tbl"><tr><th>Pokok</th><th>Rincian</th></tr><tr><td>Volume / harga</td><td>'+angkaSimulasi(s.input.q)+' kg × '+rp(s.input.ps)+'/kg</td></tr><tr><td>Penyerahan</td><td>'+esc(s.petani.tanggal)+' · '+esc(s.petani.lokasi)+'</td></tr><tr><td>Cadangan / komitmen</td><td>'+angkaSimulasi(s.konteks.R)+' kg / '+angkaSimulasi(s.konteks.L)+' kg</td></tr><tr><td>Versi usulan</td><td>'+(s.versi||'Draf belum diajukan')+'</td></tr></table>'+
     (ba&&serah?'<p>Kadar air '+serah.air+'% · kotoran '+serah.kotor+'% · selisih '+angkaSimulasi(serah.berat-s.input.q)+' kg.</p><p>Saksi: '+esc(serah.saksi)+'. '+esc(serah.catatan)+'</p><p>Keberatan: '+esc(wf().keberatan||'Tidak ada')+'. Penyelesaian: '+esc(wf().penyelesaian||'Belum ada')+'</p><p>Keputusan penyerahan: '+esc(serah.putusan)+'. '+esc(serah.alasan||'')+'</p>':
@@ -445,7 +456,8 @@ function statsDemo() {
 function dashboardDemo(role) {
   const s=statsDemo();
   return pageWorkflow(role,role==='petugas'?'Beranda petugas':'Portofolio pembiayaan',
-    '<div class="grid g3">'+[['Petani dalam demo',s.petani],['Usulan menunggu',s.antrean],['Kontrak ditandatangani',s.aktif],['Nilai akad',rp(s.nilai)],['Serah terima selesai',s.selesai],['Kontrak dengan paparan stress',s.rentan]].map(([label,n])=>'<div class="card stat"><div class="lab">'+label+'</div><div class="num">'+n+'</div></div>').join('')+'</div>'+
+    '<div class="grid g3 dashboard-primary"><div class="card stat"><div class="lab">Langkah berikutnya</div><h2>'+esc(langkahDemo()[2])+'</h2><p class="sub">'+esc(langkahDemo()[1])+'</p><div class="btn-row">'+tautan(langkahDemo()[0],'Buka langkah')+'</div></div><div class="card stat"><div class="lab">Status akad</div><h2>'+judulTahap()+'</h2><p class="sub">'+KODE_TINJAU+' · '+(wf().usulan?'Usulan v'+wf().usulan.versi:'Belum diajukan')+'</p></div><div class="card stat featured-stat"><div class="lab">Nilai akad ditandatangani</div><div class="num">'+rp(s.nilai)+'</div><p class="sub">'+(s.aktif?'Nilai sesuai salinan akad yang disetujui.':'Nilai tercatat setelah tanda tangan.')+'</p></div></div>'+
+    '<div class="dashboard-secondary">'+[['Petani dalam demo',s.petani],['Usulan menunggu',s.antrean],['Kontrak ditandatangani',s.aktif],['Serah terima selesai',s.selesai],['Kontrak dengan paparan stress',s.rentan]].map(([label,n])=>'<div><span>'+label+'</span><strong>'+n+'</strong></div>').join('')+'</div>'+
     '<div class="card mt24"><h2>Kasus aktif · '+KODE_TINJAU+'</h2><p>'+judulTahap()+' · '+s.bukti+' berkas tersimpan.</p><p>Angka di atas berasal dari kasus demo yang sedang dikerjakan. Nilai akad mulai dihitung setelah tanda tangan dicatat.</p><div class="btn-row">'+
     tautan('/petugas/pendataan','Pendataan')+tautan('/petugas/calon-kontrak','Calon kontrak')+tautan('/manajer/antrean','Antrean manajer')+tautan('/petugas/ringkasan-akad','Ringkasan akad')+tautan('/petugas/serah-terima','Serah terima')+'</div></div>'+
     '<div class="btn-row">'+tombol('ekspor','Unduh laporan CSV')+tombol('cadanganDemo','Unduh cadangan data')+'</div>',role==='petugas'?'#/petugas/beranda':'#/manajer/portofolio');
