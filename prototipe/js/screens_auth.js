@@ -30,14 +30,14 @@ function renderLogin(role) {
     '<div class="note m220"><b>Masuk ke demo</b>Pilih peran untuk melihat alur petugas, manajer, DPS, atau admin. Kata sandi dan verifikasi pada prototipe ini disimulasikan; jangan gunakan kredensial asli.</div>' +
     '<div class="field"><label>Lembaga</label><select><option>' + TDATA.lembaga + '</option></select></div>' +
     '<div class="field"><label>Email atau nomor telepon</label><input id="login-email" value="' + LOGIN_EMAIL[role] + '"></div>' +
-    '<div class="field"><label>Kata sandi</label><input type="password" value="contoh-sandi"></div>' +
+    pwdField('Kata sandi', true) +
     '<label class="check"><input type="checkbox" checked> Ingat pada perangkat pribadi; jangan aktifkan pada perangkat bersama.</label>' +
     '<p class="sub"><a href="#/masuk/lupa">Lupa kata sandi →</a></p>' +
     '<button class="btn btn-primary" id="login-btn" data-role="' + role + '"' +
       (role === 'petugas' ? '' : ' data-verify="1"') + ' data-login="1">' + loginBtnLabel(role) + '</button>' +
     '<p class="sub mt18">Akun hanya diterbitkan lembaga. Minta undangan admin, bukan pendaftaran mandiri.</p>' +
     '<p class="sub"><a href="#/masuk/aktivasi">Aktivasi akun undangan →</a> · <a href="#/masuk/sesi-berakhir">Contoh sesi berakhir →</a></p>' +
-    '<p class="sub">Hak akses mengikuti akun lembaga. · Privasi · Bantuan akses akun</p></div></div>';
+    '<p class="sub">Hak akses mengikuti akun lembaga. · <a href="#/privasi">Privasi</a> · <a href="#/bantuan">Bantuan akses akun</a></p></div></div>';
 }
 
 function authLeft() {
@@ -50,7 +50,7 @@ function authLeft() {
 
 function authRight(inner) {
   return '<div class="right"><a class="back" href="#/beranda">← Kembali ke beranda</a>' + inner +
-    '<p class="sub mt26">Hak akses mengikuti akun lembaga. Privasi · Bantuan akses akun</p></div>';
+    '<p class="sub mt26">Hak akses mengikuti akun lembaga. <a href="#/privasi">Privasi</a> · <a href="#/bantuan">Bantuan akses akun</a></p></div>';
 }
 
 function pwdField(label, eye) {

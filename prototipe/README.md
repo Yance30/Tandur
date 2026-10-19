@@ -6,6 +6,20 @@ oleh lembaga kepada petani, Tandur mencatat buktinya.
 
 ## Menjalankan
 
+### Deploy ke Vercel
+
+Konfigurasi `../vercel.json` menerbitkan folder `prototipe` sebagai situs statis.
+Pada pengaturan proyek Vercel, gunakan **Root Directory** akar repositori
+(kosong / `.`), **Framework Preset: Other**, dan tanpa perintah build/install.
+Output Directory diatur menjadi `prototipe` oleh konfigurasi tersebut.
+Jangan memilih `prototipe` sebagai Root Directory sekaligus memakai output
+`prototipe`, karena itu akan menunjuk ke folder bertingkat yang tidak ada.
+Navigasi memakai hash (`/#/intro`, `/#/beranda`), sehingga tidak perlu rewrite SPA.
+Setelah konfigurasi masuk GitHub, deploy commit terbaru. Jika gagal, periksa
+pesan pertama pada Build Logs; keberhasilan lokal belum membuktikan deploy berhasil.
+
+### Menjalankan lokal
+
 Buka `prototipe/index.html` di browser desktop. Tidak perlu build atau jaringan.
 Font dan logo tersedia lokal. Navigasi memakai hash; back/forward browser berfungsi.
 Halaman operasional menggunakan layout desktop, tanpa halaman khusus mobile.

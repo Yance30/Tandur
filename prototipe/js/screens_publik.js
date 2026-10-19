@@ -123,7 +123,7 @@ ROUTES['/beranda'] = {
       turi(96) + '</div>' +
       '<div class="plarik"><div class="flex-between">' +
       '<div><div class="ttl mb4">Larik · Hasil −20%</div>' +
-      '<p class="m0 sub13">TDR-2027-0012 · 800 kg GKP · Desa Pandanrejo</p></div>' +
+      '<p class="m0 sub13">TDR-2027-0012 · 800 kg GKP · Desa Sumberarum</p></div>' +
       '<span class="pill">✓ Empat sisi lolos</span></div>' +
       '<div class="mt20">' + larik(SISI_P1) + '</div>' +
       '<p class="foot-note mt180">Garis = ambang masing-masing sisi. Rupiah dan kg tidak disatukan dalam satu skala.</p>' +
@@ -153,7 +153,7 @@ ROUTES['/beranda'] = {
       '<div class="pgrid c3">' +
       '<div class="pcard"><div class="pmock"><span class="up">Ringkasan akad salam</span>' +
       '<div class="big">Rp4.800.000</div><hr>' +
-      'Dibayar penuh di muka · Volume akad 800 kg GKP<br>Serah Mei 2027 · Desa Pandanrejo' +
+      'Dibayar penuh di muka · Volume akad 800 kg GKP<br>Serah Mei 2027 · Desa Sumberarum' +
       '<a href="#/petugas/akad">Lihat ringkasan contoh →</a></div></div>' +
       '<div class="pcard"><div class="pchat"><span class="who">Pesan WhatsApp</span>' +
       '<p class="mt100 sub135">Halo, berikut ringkasan akad TDR-2027-0012-01. Harga dibaca bersama sebelum petani setuju.</p>' +
