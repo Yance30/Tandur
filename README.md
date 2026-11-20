@@ -4,7 +4,7 @@
 
 # Tandur
 
-**Perangkat kerja akad salam untuk KSPPS/BMT — dari pendataan petani, uji kelayakan, persetujuan, sampai serah terima panen.**
+**Perangkat kerja akad salam untuk KSPPS/BMT, dari pendataan petani, uji kelayakan, persetujuan, sampai serah terima panen.**
 
 [**Demo langsung**](https://tandur-psi.vercel.app/) · [Alur demo](prototipe/README.md#demo-dari-awal-sampai-akhir) · [Perhitungan](prototipe/README.md#perhitungan) · [Dokumentasi teknis](prototipe/README.md)
 
@@ -29,11 +29,11 @@ Akad **salam** adalah pembiayaan syariah berupa pembayaran di muka atas hasil pa
 | **Dewan Pengawas Syariah** | Arsip, jejak keputusan, persetujuan parameter, laporan |
 | **Admin** | Kelola akun dan menerapkan versi parameter yang disetujui |
 
-- **Uji ketahanan otomatis** — setiap calon kontrak diuji pada skenario dasar, panen −20%, panen −40%, dan harga −10% sebelum boleh diajukan.
-- **Uji pemahaman petani** — tanda tangan terkunci sampai petani menjawab lima pertanyaan inti dengan benar.
-- **Kontrol serah terima** — finalisasi diblokir bila selisih berat > ±1%, kadar air > 25%, kotoran > 3%, atau keberatan belum diselesaikan.
-- **Versi parameter** — ambang diusulkan manajer, disetujui DPS, diterapkan admin; akad berjalan tidak ikut berubah.
-- **Dokumen siap cetak** — ringkasan akad dan berita acara dihasilkan dari data kasus yang sama.
+- **Uji ketahanan otomatis:** setiap calon kontrak diuji pada skenario dasar, panen −20%, panen −40%, dan harga −10% sebelum boleh diajukan.
+- **Uji pemahaman petani:** tanda tangan terkunci sampai petani menjawab lima pertanyaan inti dengan benar.
+- **Kontrol serah terima:** finalisasi diblokir bila selisih berat > ±1%, kadar air > 25%, kotoran > 3%, atau keberatan belum diselesaikan.
+- **Versi parameter:** ambang diusulkan manajer, disetujui DPS, diterapkan admin; akad berjalan tidak ikut berubah.
+- **Dokumen siap cetak:** ringkasan akad dan berita acara dihasilkan dari data kasus yang sama.
 
 ## Tangkapan layar
 
